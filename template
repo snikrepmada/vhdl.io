@@ -1,0 +1,40 @@
+<!-- Alias Declaration -->
+<a class="anchor" id="Alias_Declaration"></a>
+<h2>Alias Declaration</h2>
+
+<!-- USE -->
+<table border="0" cellpadding="15">
+  <tr>
+    <td bgcolor="lightcyan">Declaration</td>
+    <td>---- used in ----&gt;</td>
+    <td bgcolor="lightgreen">Entity<br>Package<br>Process<br>Architecture<br>Procedure<br>Function</td>
+  </tr>
+</table><br>
+
+<!-- SYNTAX -->
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Syntax</h3>
+  </div>
+  <div class="panel-body">
+    <pre><code class="vhdl"></code></pre>
+  </div>
+</div>
+
+<!-- RULES AND EXAMPLES -->
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Rules and Examples</h3>
+  </div>
+  <div class="panel-body">
+  </div>
+</div>
+
+<!-- SYNTHESIS ISSUES -->
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Synthesis Issues</h3>
+  </div>
+  <div class="panel-body">
+  </div>
+</div><br><br>

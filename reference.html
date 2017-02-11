@@ -18,6 +18,11 @@
   <!-- Custom styles for this template -->
   <link href="sidebar.css" rel="stylesheet">
 
+  <!-- JS code highlighting -->
+  <link href="CodeHighlighting/styles/atom-one-light.css" rel="stylesheet">
+  <script src="CodeHighlighting/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+
   <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
@@ -57,51 +62,51 @@
     <!-- Sidebar -->
     <div id="sidebar-wrapper">
       <ul class="sidebar-nav">
-        <li><a href="#Definitions">Definitions</a>
-        <li><a href="#Aggregates">Aggregates</a>
-        <li><a href="aliasdec.html">Alias Declaration</a>
-        <li><a href="architec.html">Architecture</a>
-        <li><a href="arrays.html">Arrays</a>
-        <li><a href="assert.html">Assert Statement</a>
-        <li><a href="attrib.html">Attributes</a>
-        <li><a href="blocks.html">Block Statement</a>
-        <li><a href="cases.html">Case Statement</a>
-        <li><a href="compdec.html">Component Declaration</a>
-        <li><a href="compinst.html">Component Instantiation</a>
-        <li><a href="confdec.html">Configuration Declaration</a>
-        <li><a href="confspec.html">Configuration Specification</a>
-        <li><a href="constdec.html">Constant Declaration</a>
-        <li><a href="entity.html">Entity</a>
-        <li><a href="exits.html">Exit Statement</a>
-        <li><a href="filedec.html">File Declaration</a>
-        <li><a href="for_loop.html">For Loop</a>
-        <li><a href="function.html">Functions</a>
-        <li><a href="generate.html">Generate Statement</a>
-        <li><a href="generics.html">Generics</a>
-        <li><a href="ifs.html">If Statement</a>
-        <li><a href="literals.html">Literals</a>
-        <li><a href="names.html">Names</a>
-        <li><a href="nexts.html">Next Statement</a>
-        <li><a href="nulls.html">Null Statement</a>
-        <li><a href="operator.html">Operators</a>
-        <li><a href="package.html">Package</a>
-        <li><a href="packageb.html">Package Body</a>
-        <li><a href="procedur.html">Procedures</a>
-        <li><a href="process.html">Process</a>
-        <li><a href="qualifex.html">Qualified Expressions</a>
-        <li><a href="sig_dec.html">Signal Declaration</a>
-        <li><a href="conc_s_a.html">Concurrent Signal Assignment</a>
-        <li><a href="cond_s_a.html">Conditional Signal Assignment</a>
-        <li><a href="seq_s_a.html">Sequential Signal Assignment</a>
-        <li><a href="subt_dec.html">Subtype Declaration</a>
-        <li><a href="typeconv.html">Type Conversion</a>
-        <li><a href="type_dec.html">Type Declaration</a>
-        <li><a href="use.html">Use Clause</a>
+        <li><a href="#Definitions">Definitions</a></li>
+        <li><a href="#Aggregates">Aggregates</a></li>
+        <li><a href="#Alias_Declaration">Alias Declaration</a></li>
+        <li><a href="#Architecture">Architecture</a></li>
+        <li><a href="#Arrays">Arrays</a></li>
+        <li><a href="#Assert_Statement">Assert Statement</a></li>
+        <li><a href="#Attributes">Attributes</a></li>
+        <li><a href="#Block_Statement">Block Statement</a></li>
+        <li><a href="#Case_Statement">Case Statement</a></li>
+        <li><a href="#Component_Declaration">Component Declaration</a></li>
+        <li><a href="#Component_Instantiation">Component Instantiation</a></li>
+        <li><a href="#Configuration_Declaration">Configuration Declaration</a></li>
+        <li><a href="#Configuration_Specification">Configuration Specification</a></li>
+        <li><a href="#Constant_Declaration">Constant Declaration</a></li>
+        <li><a href="#Entity">Entity</a></li>
+        <li><a href="#Exit_Statement">Exit Statement</a></li>
+        <li><a href="#File_Declaration">File Declaration</a></li>
+        <li><a href="#For_Loop">For Loop</a></li>
+        <li><a href="#Functions">Functions</a></li>
+        <li><a href="#Generate_Statement">Generate Statement</a></li>
+        <li><a href="#Generics">Generics</a></li>
+        <li><a href="#If_Statement">If Statement</a></li>
+        <li><a href="#Literals">Literals</a></li>
+        <li><a href="#Names">Names</a></li>
+        <li><a href="#Next_Statement">Next Statement</a></li>
+        <li><a href="#Null_Statement">Null Statement</a></li>
+        <li><a href="#Operators">Operators</a></li>
+        <li><a href="#Package">Package</a></li>
+        <li><a href="#Package_Body">Package Body</a></li>
+        <li><a href="#Procedures">Procedures</a></li>
+        <li><a href="#Process">Process</a></li>
+        <li><a href="#Qualified_Expressions">Qualified Expressions</a></li>
+        <li><a href="#Signal_Declaration">Signal Declaration</a></li>
+        <li><a href="#Concurrent_Signal_Assignment">Concurrent Signal Assignment</a></li>
+        <li><a href="#Conditional_Signal_Assignment">Conditional Signal Assignment</a></li>
+        <li><a href="#Sequential_Signal_Assignment">Sequential Signal Assignment</a></li>
+        <li><a href="#Subtype_Declaration">Subtype Declaration</a></li>
+        <li><a href="#Type_Conversion">Type Conversion</a></li>
+        <li><a href="#Type_Declaratio">Type Declaration</a></li>
+        <li><a href="#Use_Clause">Use Clause</a></li>
         <ul>
-          <li><a href="var_dec.html">Variable Declaration</a>
-          <li><a href="var_ass.html">Variable Assignment</a>
-          <li><a href="waits.html">Wait Statement</a>
-          <li><a href="while.html">While and Infinite Loop</a></li>
+          <li><a href="#Variable_Declaration">Variable Declaration</a></li>
+          <li><a href="#Variable_Assignment">Variable Assignment</a></li>
+          <li><a href="#Wait_Statement">Wait Statement</a></li>
+          <li><a href="#While_and_Infinite_Loop">While and Infinite Loop</a></li>
         </ul>
       </ul>
     </div>
@@ -112,68 +117,476 @@
       <div class="container-fluid">
         <div class="row">
           <div class="col-lg-12">
+            <!-- Definitions -->
             <a class="anchor" id="Definitions"></a>
             <h2>Definitions</h2>
-            <p>This template has a responsive menu toggling system. The menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will appear/disappear. On small screens,
-              the page content will be pushed off canvas.</p>
-            <p>Make sure to keep all page content within the <code>#page-content-wrapper</code>.</p>
-            <p>This template has a responsive menu toggling system. The menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will appear/disappear. On small screens,
-              the page content will be pushed off canvas.</p>
-            <p>Make sure to keep all page content within the <code>#page-content-wrapper</code>.</p>
-            <p>This template has a responsive menu toggling system. The menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will appear/disappear. On small screens,
-              the page content will be pushed off canvas.</p>
-            <p>Make sure to keep all page content within the <code>#page-content-wrapper</code>.</p>
-            <p>This template has a responsive menu toggling system. The menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will appear/disappear. On small screens,
-              the page content will be pushed off canvas.</p>
-            <p>Make sure to keep all page content within the <code>#page-content-wrapper</code>.</p>
-            <p>This template has a responsive menu toggling system. The menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will appear/disappear. On small screens,
-              the page content will be pushed off canvas.</p>
-            <p>Make sure to keep all page content within the <code>#page-content-wrapper</code>.</p>
-            <p>This template has a responsive menu toggling system. The menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will appear/disappear. On small screens,
-              the page content will be pushed off canvas.</p>
-            <p>Make sure to keep all page content within the <code>#page-content-wrapper</code>.</p>
-            <p>This template has a responsive menu toggling system. The menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will appear/disappear. On small screens,
-              the page content will be pushed off canvas.</p>
-            <p>Make sure to keep all page content within the <code>#page-content-wrapper</code>.</p>
-            <p>This template has a responsive menu toggling system. The menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will appear/disappear. On small screens,
-              the page content will be pushed off canvas.</p>
-            <p>Make sure to keep all page content within the <code>#page-content-wrapper</code>.</p>
-            <p>This template has a responsive menu toggling system. The menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will appear/disappear. On small screens,
-              the page content will be pushed off canvas.</p>
-            <p>Make sure to keep all page content within the <code>#page-content-wrapper</code>.</p>
-            <p>This template has a responsive menu toggling system. The menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will appear/disappear. On small screens,
-              the page content will be pushed off canvas.</p>
-            <p>Make sure to keep all page content within the <code>#page-content-wrapper</code>.</p>
-            <p>This template has a responsive menu toggling system. The menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will appear/disappear. On small screens,
-              the page content will be pushed off canvas.</p>
-            <p>Make sure to keep all page content within the <code>#page-content-wrapper</code>.</p>
+              <table class="table table-bordered">
+                <tbody>
+                  <tr>
+                    <td>Analysis</td>
+                    <td>The syntax checking and compilation of a VHDL design into a design library.</td>
+                  </tr>
 
+                  <tr>
+                    <td valign="center">Architecture</td>
+                    <td>A library unit associated with an entity which describes its internal operation or organisation. Multiple architectures may be defined for a single entity</td>
+                  </tr>
+
+                  <tr>
+                    <td>Component</td>
+                    <td>A definition of the interface to a sub-module, rather like a "socket", to which an entity may later be bound.</td>
+                  </tr>
+
+                  <tr>
+                    <td>Concurrent Statements</td>
+                    <td>Statements within an architecture which execute concurrently in simulated time, independently of their order.</td>
+                  </tr>
+
+                  <tr>
+                    <td>Configuration</td>
+                    <td>Defines the "binding" of each component instance to an entity, and each entity to an architecture. Can be defined using a configuration library unit or from within an architecture.</td>
+                  </tr>
+
+                  <tr>
+                    <td>Design File</td>
+                    <td>A text file containing source code for one or more design units.</td>
+                  </tr>
+
+                  <tr>
+                    <td>Design Library</td>
+                    <td>A data structure containing analysed design units (library units).</td>
+                  </tr>
+
+                  <tr>
+                    <td>Design Unit</td>
+                    <td>A VHDL module contained in a design file, consisting of the source code for a library unit preceded by any required Library or Use clauses. Analysis of a design unit defines the corresponding library unit in a design library.</td>
+                  </tr>
+
+                  <tr>
+                    <td>Elaboration</td>
+                    <td>The building of a simulateable model through the top-down binding of its structural hierarchy, according to the configuration selected.</td>
+                  </tr>
+
+                  <tr>
+                    <td>Entity</td>
+                    <td>A library unit which describes the external interface of a hardware module.</td>
+                  </tr>
+
+                  <tr>
+                    <td>Function</td>
+                    <td>A group of sequential statements which can be "called" from different places in a model, reading one or more input parameters and returning a single value.</td>
+                  </tr>
+
+                  <tr>
+                    <td>Library Unit</td>
+                    <td>An analysed design unit. The five types of library unit are: entity, architecture, package, package body and configuration.</td>
+                  </tr>
+
+                  <tr>
+                    <td>Overloading</td>
+                    <td>The definition of multiple functions or procedures with the same name, which operate on different parameter combinations or types.</td>
+                  </tr>
+
+                  <tr>
+                    <td>Package</td>
+                    <td>A primary unit containing a collection of declarations and/or specifications which may be used in other library units.</td>
+                  </tr>
+
+                  <tr>
+                    <td>Package Body</td>
+                    <td>A secondary unit associated with a package, whose main purpose is to contain the full code for any functions or procedures which have been declared in the associated package. It may also contain declarations and specifications which are explained in the Reference Guide section of this document.</td>
+                  </tr>
+
+                  <tr>
+                    <td>Primary Unit</td>
+                    <td>a library unit which can exist in a design library. The primary design units are entity, package and configuration.</td>
+                  </tr>
+
+                  <tr>
+                    <td>Procedure</td>
+                    <td>A group of sequential statements which can be "called" from different places in a model. It may have parameters of modes in, out or inout.</td>
+                  </tr>
+
+                  <tr>
+                    <td>Process</td>
+                    <td>A concurrent statement which contains a collection of sequential statements and which can interact concurrently with other concurrent statements.</td>
+                  </tr>
+
+                  <tr>
+                    <td>Resolution</td>
+                    <td>The determination of the value of a signal when it is simultaneously driven by more than one source.</td>
+                  </tr>
+
+                  <tr>
+                    <td>Scope</td>
+                    <td>The region of VHDL code within which a declared item (e.g. a constant) may be used</td>
+                  </tr>
+
+                  <tr>
+                    <td>Secondary Unit</td>
+                    <td>A library init which defines a body associated with a primary unit which has already been analysed into the same design library. The secondary units are architecture (associated with entity) and package body (associated with package).</td>
+                  </tr>
+
+                  <tr>
+                    <td>Sequential Statements</td>
+                    <td>Statements which are executed in the order they are written, as with "conventional" software languages.</td>
+                  </tr>
+                </tbody>
+              </table>
+              <br><br>
+
+            <!-- Aggregates -->
             <a class="anchor" id="Aggregates"></a>
-            <h2 id="Aggregates">Aggregates</h2>
-            <p>This template has a responsive menu toggling system. The menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will appear/disappear. On small screens,
-              the page content will be pushed off canvas.</p>
-            <p>Make sure to keep all page content within the <code>#page-content-wrapper</code>.</p>
-            <p>This template has a responsive menu toggling system. The menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will appear/disappear. On small screens,
-              the page content will be pushed off canvas.</p>
-            <p>Make sure to keep all page content within the <code>#page-content-wrapper</code>.</p>
-            <p>This template has a responsive menu toggling system. The menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will appear/disappear. On small screens,
-              the page content will be pushed off canvas.</p>
-            <p>Make sure to keep all page content within the <code>#page-content-wrapper</code>.</p>
-            <p>This template has a responsive menu toggling system. The menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will appear/disappear. On small screens,
-              the page content will be pushed off canvas.</p>
-            <p>Make sure to keep all page content within the <code>#page-content-wrapper</code>.</p>
-            <p>This template has a responsive menu toggling system. The menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will appear/disappear. On small screens,
-              the page content will be pushed off canvas.</p>
-            <p>Make sure to keep all page content within the <code>#page-content-wrapper</code>.</p>
-            <p>This template has a responsive menu toggling system. The menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will appear/disappear. On small screens,
-              the page content will be pushed off canvas.</p>
-            <p>Make sure to keep all page content within the <code>#page-content-wrapper</code>.</p>
-            <p>This template has a responsive menu toggling system. The menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will appear/disappear. On small screens,
-              the page content will be pushed off canvas.</p>
-            <p>Make sure to keep all page content within the <code>#page-content-wrapper</code>.</p>
-            <p>This template has a responsive menu toggling system. The menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will appear/disappear. On small screens,
-              the page content will be pushed off canvas.</p>
-            <p>Make sure to keep all page content within the <code>#page-content-wrapper</code>.</p>
+            <h2>Aggregates</h2>
+
+            <!-- USE -->
+            <table border="0" cellpadding="15">
+              <tr>
+                <td bgcolor="lightcyan">Expression</td>
+                <td>---- used in ----&gt;</td>
+                <td bgcolor="lightgreen">Entity<br>Architecture<br>Package<br>Package Body</td>
+              </tr>
+            </table><br>
+
+            <!-- SYNTAX -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Syntax</h3>
+              </div>
+              <div class="panel-body">
+                <pre><code class="vhdl">(value_1, value_2, ...)</code></pre>
+                <pre><code class="vhdl">(element_1 =&gt; value_1, element_2 =&gt; value_2, ...)</code></pre>
+              </div>
+            </div>
+
+            <!-- RULES AND EXAMPLES -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Rules and Examples</h3>
+              </div>
+              <div class="panel-body">
+
+Aggregates are a grouping of values to form an array or record expression. The first form is called <b>positional association</b>, where the values are associated with elements from left to right:
+<pre><code class="vhdl">signal Z_BUS : bit_vector(3 downto 0);
+signal A_BIT, B_BIT, C_BIT, D_BIT : bit;
+...
+Z_BUS &lt;= (A_BIT, B_BIT, C_BIT, D_BIT);</code></pre>
+
+Equivalent Assignments:
+<pre><code class="vhdl">Z_BUS(3) &lt;= A_BIT;
+Z_BUS(2) &lt;= B_BIT;
+Z_BUS(1) &lt;= C_BIT;
+Z_BUS(0) &lt;= D_BIT;</code></pre>
+Aggregates may be used as the targets of assignments.<br><br>
+
+The second form is <b>named association</b>, where elements are explicitly referenced and order is not important:
+<pre><code class="vhdl">signal Z_BUS : bit_vector(3 downto 0);
+signal A_BIT, B_BIT, C_BIT, D_BIT : bit;
+...
+Z_BUS &lt;= (2 =&gt; B_BIT, 1 =&gt; C_BIT, 0 =&gt; D_BIT, 3 =&gt; A_BIT);</code></pre>
+
+With positional association, elements may be grouped together using the | symbol or a range. The keyword <b>others</b> may be used to refer to all elements not already mentioned:
+<pre><code class="vhdl">signal B_BIT : bit;
+signal BYTE : bit_vector(7 downto 0);
+...
+BYTE &lt;= (7 =&gt; '1', (5 downto 1) =&gt; '1', 6 =&gt; B_BIT, (others =&gt; '0'));</code></pre>
+
+Assignment to a whole record must be done using an aggregate. Positional or named association may be used.
+<pre><code class="vhdl">type T_PACKET is record
+  BYTE_ID : std_ulogic;
+  PARITY  : std_ulogic;
+  ADDRESS : integer range 0 to 3;
+  DATA    : std_ulogic_vector(3 downto 0);
+end record
+signal TX_DATA : T_PACKET;
+...
+TX_DATA &lt;= ('1', '0', 2, "0101");</code></pre>
+
+An aggregate containing just <b>others</b> can assign a value to all elements of an array, regardless of size:
+<pre><code class="vhdl">type NIBBLE is array (3 downto 0) of std_ulogic;
+type MEM is array (0 to 7) of NIBBLE;
+variable MEM8X4: MEM := (others =&gt; "0000");
+variable D_BUS : std_ulogic_vector(63 downto 0) := (others =&gt; 'Z');</code></pre>
+              </div>
+            </div>
+
+            <!-- SYNTHESIS ISSUES -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Synthesis Issues</h3>
+              </div>
+              <div class="panel-body">
+                Logic synthesis tools may not support named association fully. Also, record assignments using aggregates may not be supported.
+              </div>
+            </div><br><br>
+
+            <!-- ALIAS DECLARATION -->
+            <a class="anchor" id="Alias_Declaration"></a>
+            <h2>Alias Declaration</h2>
+
+            <!-- USE -->
+            <table border="0" cellpadding="15">
+              <tr>
+                <td bgcolor="lightcyan">Declaration</td>
+                <td>---- used in ----&gt;</td>
+                <td bgcolor="lightgreen">Entity<br>Package<br>Process<br>Architecture<br>Procedure<br>Function</td>
+              </tr>
+            </table><br>
+
+            <!-- SYNTAX -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Syntax</h3>
+              </div>
+              <div class="panel-body">
+                <pre><code class="vhdl">alias alias_name : alias_type is object_name;</code></pre>
+              </div>
+            </div>
+
+            <!-- RULES AND EXAMPLES -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Rules and Examples</h3>
+              </div>
+              <div class="panel-body">
+
+An alias is an alternative name for an existing object (signal, variable or constant). It does not define a new object.
+<pre><code class="vhdl">alias SIGN    : bit is DATA(31);
+alias BYTE_ID : bit is NET_DATA_IN(7);</code></pre>
+
+Aliases provide a useful "shorthand" for referencing complex slices etc.:
+<pre><code class="vhdl">use work.BV_ARITH.all;
+...
+alias OPERAND : bit_vector(1 downto 0) is CPU_BUFFER(LOW) (4 downto 3);
+alias A       : bit_vector(3 downto 0) is CPU_BUFFER(HIGH)(3 downto 0);
+alias B       : bit_vector(2 downto 0) is CPU_BUFFER(LOW) (2 downto 0);
+...
+CPU_DATA_TMP := (B &amp; A) + OPERAND;</code></pre>
+
+An alias of an array object can be indexed in the opposite direction.
+<pre><code class="vhdl">signal BUS_A : std_ulogic_vector(7 downto 0);
+alias BIT_REV_A : std_ulogic_vector(0 to 7) is BUS_A;</code></pre>
+              </div>
+            </div>
+
+            <!-- SYNTHESIS ISSUES -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Synthesis Issues</h3>
+              </div>
+              <div class="panel-body">
+                <p>
+                  Aliases are not supported by many logic synthesis tools.
+                </p>
+                <p>
+                  A work-around is to declare new "alias" signals, variables or constants, and assign them with the slice expression. With signals and variables this increases simulation overhead, but preserves readability.
+                </p>
+                <p>
+                  Such "alias" signals should be assigned concurrently, and "alias" variables should be reassigned each time their process is activated.
+                </p>
+              </div>
+            </div><br><br>
+
+            <!-- ARCHITECTURE -->
+            <a class="anchor" id="Architecture"></a>
+            <h2>Architecture</h2>
+
+            <!-- USE -->
+            <table border="0" cellpadding="15">
+              <tr>
+                <td bgcolor="lightcyan">Secondary Unit</td>
+              </tr>
+            </table><br>
+
+            <!-- SYNTAX -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Syntax</h3>
+              </div>
+              <div class="panel-body">
+<pre><code class="vhdl">architecture architecture_name of entity_name is
+  declarations
+begin
+  concurrent statements
+end architecture architecture_name;</code></pre>
+              </div>
+            </div>
+
+            <!-- RULES AND EXAMPLES -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Rules and Examples</h3>
+              </div>
+              <div class="panel-body">
+
+Declarations may typically be any of the following: type, subtype, signal, constant, file, alias, component, attribute, function, procedure, configuration specification.
+<pre><code class="vhdl">architecture TB of TB_CPU is
+  component CPU_IF
+    port   -- port list
+  end component;
+  signal CPU_DATA_VALID: std_ulogic;
+  signal CLK, RESET: std_ulogic := '0';
+  constant PERIOD : time := 10 ns;
+  constant MAX_SIM: time := 50 * PERIOD;
+begin
+  -- concurrent statements
+end TB;</code></pre>
+
+The order of concurrent statements is not important - behaviour is defined by data dependencies only:
+<pre><code class="vhdl">architecture EX1 of CONC is
+  signal Z, A, B, C, D : integer;
+begin
+  D &lt;= A + B;
+  Z &lt;= C + D;
+end EX1;</code></pre>
+
+Items declared in an architecture are visible in any process or block within it.<br>
+
+An equivalent architecture:
+<pre><code class="vhdl">architecture EX2 of CONC is
+  signal Z, A, B, C, D : integer;
+begin
+  Z &lt;= C + D;
+  D &lt;= A + B;
+end EX2;</code></pre>
+
+An architecture can contain any mix of component instances, processes or other concurrent statements:
+<pre><code class="vhdl">architecture TEST of TB_DFF is
+  component DFF
+    port (
+      CLK, D: in  std_ulogic;
+      Q     : out std_ulogic);
+  end component;
+  signal CLK, D, Q : std_ulogic := '0';
+begin
+  UUT: DFF port map (CLK, D, Q);
+
+  CLK &lt;= not (CLK) after 25 ns;
+
+  STIMULUS: process
+  begin
+    wait for 50 ns;
+    D &lt;= '1';
+    wait for 100 ns;
+    D &lt;= '0';
+    wait for 50 ns;
+  end process STIMULUS;
+end architecture TEST;</code></pre>
+
+An entity can have one or more architectures. which one is used (or "bound") depends on the <b>configuration</b>.<br>
+
+An architecture cannot be analysed unless the entity it refers to exists in the same design library.
+
+              </div>
+            </div>
+
+            <!-- SYNTHESIS ISSUES -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Synthesis Issues</h3>
+              </div>
+              <div class="panel-body">
+                <p>
+                  Architectures are fully supported by synthesis tools, provided the declarations and statements they contain are compatible with synthesis.
+                </p>
+                <p>
+                  Configuration is not usualy supported by synthesis tools, so only one architecture per entity may be analysed. With some tools, this architecture must be in the same design file as the entity.
+                </p>
+              </div>
+            </div><br><br>
+
+            <!-- ARRAYS -->
+            <a class="anchor" id="Arrays"></a>
+            <h2>Arrays</h2>
+
+            <!-- USE -->
+            <table border="0" cellpadding="15">
+              <tr>
+                <td bgcolor="lightcyan">Declaration</td>
+                <td>---- used in ----&gt;</td>
+                <td bgcolor="lightgreen">Package<br>Entity<br>Architecture<br>Process<br>Procedure<br>Function</td>
+              </tr>
+            </table><br>
+
+            <!-- SYNTAX -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Syntax</h3>
+              </div>
+              <div class="panel-body">
+                <pre><code class="vhdl">type type_name is array (range) of element_type;</code></pre>
+              </div>
+            </div>
+
+            <!-- RULES AND EXAMPLES -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Rules and Examples</h3>
+              </div>
+              <div class="panel-body">
+An <b>array</b> contains multiple elements of the same type. When an array object is declared, an existing array type must be used.
+<pre><code class="vhdl">type NIBBLE is array (3 downto 0) of std_ulogic;
+type RAM is array (0 to 31) of integer range 0 to 255;
+signal A_BUS : NIBBLE;
+signal RAM_0 : RAM;</code></pre>
+
+An array type definition can be <b>unconstrained</b>, i.e. of undefined length. <b>String</b>, <b>bit_vector</b>, and <b>std_logic_vector</b> are defined in this way. An object (signal, variable, or constant) of an unconstrained array type must have it's index type range defined when it is declared.
+<pre><code class="vhdl">type INT_ARRAY is array (integer range &lt;&gt;) of integer;
+variable INT_TABLE: INT_ARRAY(0 to 9);
+variable LOC_BUS : std_ulogic_vector(7 downto 0);</code></pre>
+
+Arrays with character elements such as <b>string</b>, <b>bit_vector</b>, and <b>std_logic_vector</b> may be assigned a literal value using double quotes (see <b>literals</b>):
+<pre><code class="vhdl">CONSTANT MSG_o: string := "Test 1 Completed";
+...
+A_BUS &lt;= "0000";
+LOC_BUS &lt;= "10101010";</code></pre>
+
+Arrays may also be assigned using <b>concatenation</b>, <b>aggregates</b>, <b>slices</b>, or a mixture. By default, assignment is made by <b>position.</b>
+<pre><code class="vhdl">A_BUS &lt;= (A_BIT, B_BIT, C_BIT, D_BIT);
+-- an equivalent assignment:
+A_BUS &lt;= (A_BIT &amp; B_BIT &amp; C_BIT &amp; D_BIT);
+-- rotate A_BUS to the left:
+A_BUS &lt;= A_BUS(2 downto 0) &amp; A_BUS(3);</code></pre>
+
+Arrays of arrays may be declared. These are useful for memories, vector tables, etc.:
+<pre><code class="vhdl">type NIBBLE is array (3 downto 0) of std_ulogic;
+type MEM is array (0 to 7) of NIBBLE;
+-- an array "array of array" type
+variable MEM8X4 : MEM;
+...
+-- accessing the whole array:
+MEM8X4 := ("0000", "0001", "0010", "0011", "0100", "0101", "0110", "0111");
+-- accessing a "word"
+MEM8X4(5) := "0110";
+-- accessing a single bit
+MEM8X4(6) (0) := '0';</code></pre>
+
+True two (or more) dimensional arrays may also be declared:
+<pre><code class="vhdl">type T_2D is array (3 downto 0, 1 downto 0) of integer;
+signal X_2D : T_2D;
+...
+X_2D &lt;= ((0,0), (1,1), (2,2), (3,3));
+X_2D(3,1) &lt;= 4;</code></pre>
+              </div>
+            </div>
+
+            <!-- SYNTHESIS ISSUES -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Synthesis Issues</h3>
+              </div>
+              <div class="panel-body">
+                <p>
+                  Most logic synthesis tools accept one-dimensional <b>arrays</b> of other supported types. 1-D arrays of 1-D arrays are often supported. Some tols also allow true 2-D arrays, but not more dimensions.
+                </p>
+                <p>
+                  Note that arrays are usually implemented using gates and flip-flops, not ROM's and RAM's.
+                </p>
+              </div>
+            </div><br><br>
+
+
+
             <!-- <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a> -->
           </div>
         </div>
