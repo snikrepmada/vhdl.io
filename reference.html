@@ -13,10 +13,10 @@
   <title>vhdl.io - VHDL Reference Information - Reference</title>
 
   <!-- Bootstrap -->
-  <link href="../bootstrap-3.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="bootstrap-3.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
 
   <!-- Custom styles for this template -->
-  <link href="sidebar.css" rel="stylesheet">
+  <link href="StyleSheets/sidebar.css" rel="stylesheet">
 
   <!-- JS code highlighting -->
   <link href="CodeHighlighting/styles/atom-one-light.css" rel="stylesheet">
@@ -67,7 +67,7 @@
         <li><a href="#Alias_Declaration">Alias Declaration</a></li>
         <li><a href="#Architecture">Architecture</a></li>
         <li><a href="#Arrays">Arrays</a></li>
-        <li><a href="#Assert_Statement">Assert Statement</a></li>
+        <li><a href="#Assert">Assert</a></li>
         <li><a href="#Attributes">Attributes</a></li>
         <li><a href="#Block_Statement">Block Statement</a></li>
         <li><a href="#Case_Statement">Case Statement</a></li>
@@ -584,6 +584,1025 @@ X_2D(3,1) &lt;= 4;</code></pre>
                 </p>
               </div>
             </div><br><br>
+
+            <!-- Assert -->
+            <a class="anchor" id="Assert"></a>
+            <h2>Assert</h2>
+
+            <!-- USE -->
+            <table border="0" cellpadding="15">
+              <tr>
+                <td bgcolor="lightcyan">Concurrent Statement</td>
+                <td>---- used in ----&gt;</td>
+                <td bgcolor="lightgreen">Entity<br>Architecture</td>
+              </tr>
+              <tr><td><br/></td></tr>
+              <tr>
+                <td bgcolor="lightcyan">Sequential Statement</td>
+                <td>---- used in ----&gt;</td>
+                <td bgcolor="lightgreen">Process<br>Function<br>Procedure</td>
+              </tr>
+            </table><br>
+
+            <!-- SYNTAX -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Syntax</h3>
+              </div>
+              <div class="panel-body">
+                <pre><code class="vhdl">assert condition report string severity severity_level;</code></pre>
+              </div>
+            </div>
+
+            <!-- RULES AND EXAMPLES -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Rules and Examples</h3>
+              </div>
+              <div class="panel-body">
+The assert statement tests the boolean condition. If this is <b>false</b>, it outputs a message containing the report string to the simulator screen:
+<pre><code class="vhdl">assert (J /= C) report "J = C" severity note;</code></pre>
+
+The severity level may be defined as <b>note, warning, error</b> or <b>failure</b>
+Level <b>failure</b> normally aborts the simulation.
+<pre><code class="vhdl">assert not OVERFLOW report "Accumulator overflowed" severity failure;
+</code></pre>
+
+If the message clause is ommited, a default message is output.
+The severity level and the name of the design unit containing the relevant assert
+statement may also be output.
+
+If the severity clause is ommited, the default level is <b>error.</b>
+
+A <b>concurrent</b> statement monitors the boolean condition continuously.
+
+An unconditional message can be output by using the literal <b>false</b>:
+<pre><code class="vhdl">procedure
+  PUT (
+    signal STACK   : inout T_STACK;
+    signal POINTER : inout T_POINT;
+    signal ITEM    : in    T_DATA
+  ) is
+begin
+  if (POINTER &lt; 5) then
+    STACK(POINTER) &lt;= ITEM;
+    POINTER &lt;= POINTER + 1;
+  else
+    assert false report "Stack overflow" severity error;
+  end if;
+end PUT;</code></pre>
+
+As well as functional errors, timing errors can be reported via <b>assert</b>:
+<pre><code class="vhdl">CHECK_SETUP : process (CLK, D)
+begin
+  if (CLK'event and CLK = '1') then
+    assert D'stable(SETUP_TIME) report "Setup Violation..." severity warning;
+  end if;
+end process CHECK_SETUP;</code></pre>
+              </div>
+            </div>
+
+            <!-- SYNTHESIS ISSUES -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Synthesis Issues</h3>
+              </div>
+              <div class="panel-body">
+                Assert statements are ignored by logic synthesis tools.
+              </div>
+            </div><br><br>
+
+            <!-- Attributes -->
+            <a class="anchor" id="Attributes"></a>
+            <h2>Attributes</h2>
+
+            <!-- USE -->
+            <table border="0" cellpadding="15">
+              <tr>
+                <td bgcolor="lightcyan">Attribute</td>
+                <td>---- used in ----&gt;</td>
+                <td bgcolor="lightgreen">Entity<br>Architecture<br>Package<br>Package Body</td>
+              </tr>
+            </table><br>
+
+            <!-- SYNTAX -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Syntax</h3>
+              </div>
+              <div class="panel-body">
+                <pre><code class="vhdl">object'attribute_name</code></pre>
+              </div>
+            </div>
+
+            <!-- RULES AND EXAMPLES -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Rules and Examples</h3>
+              </div>
+              <div class="panel-body">
+Attributes supply additional information about an item, e.g. a signal, variable, type or component. Certain attributes are predefined for types, array objects and signals.<br/>
+
+These are some of the predefined attributes for scalar types, constrained array types and any objects declared to be of array types. They are the same type as the object (scalar), or the index (array):
+<pre><code class="vhdl">X'high  -- The upper bound of X
+X'low   -- The lower bound of X
+X'left  -- The leftmost bound of X
+X'right -- The rightmost bound of X</code></pre>
+
+These are predefined only constrained array types and any objects declared to be of array types:
+<pre><code class="vhdl">X'range -- The range of X
+X'reverse_range -- The range of X "back to front"
+X'length -- X'high - X'low + 1 (integer)</code></pre>
+
+These attributes are predefined for any signal X:
+<pre><code class="vhdl">X'event -- True when signal X changes (boolean)
+X'active -- True when signal X assigned to (boolean)
+X'last_event -- When signal X last changed (time)
+X'last_active -- When signal X was last assigned to (time)
+X'last_value -- Previous value of X (same type as X)</code></pre>
+
+These attributes create a <b>new signal</b>, based on signal X:
+<pre><code class="vhdl">X'delayed(T)Signal X delayed by T (same type as X)
+X'stable(T) -- True if X unaltered for time T (boolean)
+X'quiet(T) -- True if X is unassigned for time T (boolean)
+X'transaction -- "Toggles" when X is assigned (bit)</code></pre>
+
+User defined attributes may be declared. These do not affect simulation, but may be used to supply information to other tools, e.g. for layout or synthesis:
+<pre><code class="vhdl">type IC_PACKAGE is (DIL, PLCC, PGA);
+attribute PTYPE: ICPACKAGE;
+attribute PTYPE of U1 : component is PLCC;
+attribute PTYPE of U2 : component is DIL;</code></pre>
+              </div>
+            </div>
+
+            <!-- SYNTHESIS ISSUES -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Synthesis Issues</h3>
+              </div>
+              <div class="panel-body">
+                Logic synthesis tools usually support the predefined attributes <b>'high, 'low,
+                'left, 'right, 'range, reverse_range, 'length</b> and <b>'event</b>. Some tools
+                support <b>'last_value</b> and <b>'stable</b>.
+                <br/><br/>
+                Several synthesis vendors define a set of attributes to supply synthesis directives
+                such as area or timing constraints, enumeration encoding etc.
+              </div>
+            </div><br><br>
+
+            <!--  -->
+            <a class="anchor" id="Block_Statement"></a>
+            <h2>Block Statement</h2>
+
+            <!-- USE -->
+            <table border="0" cellpadding="15">
+              <tr>
+                <td bgcolor="lightcyan">Concurrent Statement</td>
+                <td>---- used in ----&gt;</td>
+                <td bgcolor="lightgreen">Architecture</td>
+              </tr>
+            </table><br>
+
+            <!-- SYNTAX -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Syntax</h3>
+              </div>
+              <div class="panel-body">
+<pre><code class="vhdl">label : block(optional_guard_condition)
+  declarations
+begin
+  concurrent statements
+end block label;</code></pre>
+              </div>
+            </div>
+
+            <!-- RULES AND EXAMPLES -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Rules and Examples</h3>
+              </div>
+              <div class="panel-body">
+The label is compulsory.
+<pre><code class="vhdl">CONTROL_LOGIC : block
+begin
+  U1 : CONTROLLER_A
+    port map (CLK, X, Y, Z);
+  U2 : CONTROLLER_A
+    port map (CLK, A, B, C);
+end block CONTROL_LOGIC;
+
+DATA_PATH : block
+begin
+  U3 : DATAPATH_A port map
+    (BUS_A, BUS_B, BUS_C, Z);
+  U4 : DATAPATH_B port map
+    (BUS_A,BUS_C,BUS_D,C);
+end block DATA_PATH;</code></pre>
+
+Without a guard condition a block is a grouping together of concurrent statements within an architecture. It may have local signals, constants etc. declared.<br/><br/>
+
+Blocks may contain further blocks, implying a form of hierarchy within a single architecture.<br/><br/>
+
+A Block may contain any of the declarations possible for an architecture. Items declared within a block are only visible inside it.<br/><br/>
+
+If an optional guard condition is included, the block becomes a <b>guarded block</b>. the <b>guard condition</b> must return a boolean value, and controls <b>guarded signal assignments</b> within the block. If the guard condition evaluates to false, the drive to any <b>guarded signals</b> from the block is "switched off". Such signals must be declared to be guarded signals of a resolved type. Guarded signals can be declared by adding the words <b>bus</b> or <b>register</b> after the name of the type of the signal. The difference between bus and register signals is that if all drivers to a bus signal are "switched off", it requires a resolution function to provide a value for the signal but a register signal retains its last driven value after all drivers to it have been switched off.
+<pre><code class="vhdl">architecture BLKS of TRISTATE is
+  signal INT: std_logic bus;
+begin
+  DRIVER_1 : block (EN = '1')
+  begin
+    INT &lt;= guarded DATA_1;
+  end block DRIVER_1;
+end BLKS;</code></pre>
+              </div>
+            </div>
+
+            <!-- SYNTHESIS ISSUES -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Synthesis Issues</h3>
+              </div>
+              <div class="panel-body">
+                Unguarded <b>block</b> statements are usually ignored by logic synthesis tools (i.e. all blocks within an architecture are "flattened").<br/><br/>
+                <b>Guarded block</b> statements are <b>not</b> usually supported for synthesis.<br/><br/>
+                Sequential (i.e. flip-flop and register) behaviour can be modelled using guarded blocks, but again for synthesis and readability it is better described using "clocked" processes.
+              </div>
+            </div><br><br>
+
+            <!-- Case Statement -->
+            <a class="anchor" id="Case_Statement"></a>
+            <h2>Case Statement</h2>
+
+            <!-- USE -->
+            <table border="0" cellpadding="15">
+              <tr>
+                <td bgcolor="lightcyan">Sequential Statement</td>
+                <td>---- used in ----&gt;</td>
+                <td bgcolor="lightgreen">Process<br>Function<br>Procedure</td>
+              </tr>
+            </table><br>
+
+            <!-- SYNTAX -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Syntax</h3>
+              </div>
+              <div class="panel-body">
+<pre><code class="vhdl">case expression is
+  when choice =&gt;
+    sequential statements
+  when choice =&gt;
+    sequential statements
+end case;</code></pre>
+              </div>
+            </div>
+
+            <!-- RULES AND EXAMPLES -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Rules and Examples</h3>
+              </div>
+              <div class="panel-body">
+All possible choices must be included, unless the <b>others</b> clause is used as the last choice:
+<pre><code class="vhdl">case SEL is
+  when "01"   =&gt; Z &lt;= A;
+  when "10"   =&gt; Z &lt;= B;
+  when others =&gt; Z &lt;= 'X';
+end case;</code></pre>
+
+A range or a selection may be specified as a choice:
+<pre><code class="vhdl">case INT_A is
+  when 0      =&gt; Z &lt;= A;
+  when 1 to 3 =&gt; Z &lt;= B;
+  when 4|6|8  =&gt; Z &lt;= C;
+  when others =&gt; Z &lt;= 'X';
+end case;</code></pre>
+
+Choices may not overlap
+<pre><code class="vhdl">case INT_A is
+  when 0      =&gt; Z &lt;= A;
+  when 1 to 3 =&gt; Z &lt;= B;
+  when 2|6|8  =&gt; Z &lt;= C;   -- illegal
+  when others =&gt; Z &lt;= 'X';
+end case;</code></pre>
+
+A range may not be used with a vector type
+<pre><code class="vhdl">case VEC is
+  when "000" to "010" =&gt; Z &lt;= A;   -- illegal
+  when "111"          =&gt; Z &lt;= B;
+  when others         =&gt; Z &lt;= 'X';
+end case;</code></pre>
+              </div>
+            </div>
+
+            <!-- SYNTHESIS ISSUES -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Synthesis Issues</h3>
+              </div>
+              <div class="panel-body">
+The <b>CASE</b> statement is generally synthesisable.<br/><br/>
+
+With repeated assignments to a target signal, it willsynthesise to a large multiplexer with logic on the select inputs to evaluate the conditions for the different choices in the case statement branches. No "priority" will be inferred from the order of the branches<br/><br/>
+
+With multiple targets and embedded <b>if</b> statements, the <b>case</b> statement may be used to synthesise a general mapping function, e.g. next state and output generation for a finite state machine. For example:
+<pre><code class="vhdl">case READ_CPU_STATE is
+  when WAITING =&gt;
+    if CPU_DATA_VALID = '1' then
+      CPU_DATA_READ  &lt;= '1';
+      READ_CPU_STATE &lt;= DATA1;
+    end if;
+  when DATA1 =&gt;
+    -- etc.
+end case;</code></pre>
+              </div>
+            </div><br><br>
+
+            <!--  -->
+            <a class="anchor" id="Component_Declaration"></a>
+            <h2>Component Declaration</h2>
+
+            <!-- USE -->
+            <table border="0" cellpadding="15">
+              <tr>
+                <td bgcolor="lightcyan">Declaration</td>
+                <td>---- used in ----&gt;</td>
+                <td bgcolor="lightgreen">Architecture<br>Package</td>
+              </tr>
+            </table><br>
+
+            <!-- SYNTAX -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Syntax</h3>
+              </div>
+              <div class="panel-body">
+<pre><code class="vhdl">component component_name
+  generic (generic_list);
+  port (port_list);
+end component</code></pre>
+              </div>
+            </div>
+
+            <!-- RULES AND EXAMPLES -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Rules and Examples</h3>
+              </div>
+              <div class="panel-body">
+The port list must define the name, the mode (i.e.direction) and the type of each port on the component.
+<pre><code class="vhdl">component HALFADD
+  port(
+    A,B : in bit;
+    SUM, CARRY : out bit
+  );
+end component;</code></pre>
+
+A component declaration does not define the entity-architecture pair to be bound to each instance, or even the ports on the entity. These are defined by the <b>configuration</b>.<br/><br/>
+
+In an architecture, components must be declared before the <b>begin</b> statement:
+<pre><code class="vhdl">architecture STRUCTURAL of FULLADD is
+  -- (local signal declarations here)
+  component ORGATE
+    port (
+      A,B : in  bit;
+      Z : out bit
+    );
+  end component;
+  -- (other component declarations)
+begin
+  -- the architecture contents
+end STRUCTURAL;</code></pre>
+
+A component declared in a package is visible in any architecture which uses the package, and need not be declared again.<br/><br/>
+
+For a component with generics, these must be declared before the ports. They do not have a mode, as by definition they can only pass information into the entity:
+<pre><code class="vhdl">component PARITY
+  generic (
+    N : integer
+  );
+  port (
+    A : in  std_ulogic_vector(N-1 downto 0);
+    ODD : out std_ulogic
+  );
+end component;</code></pre>
+              </div>
+            </div>
+
+            <!-- SYNTHESIS ISSUES -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Synthesis Issues</h3>
+              </div>
+              <div class="panel-body">
+                <b>Component</b> declarations are supported for synthesis, providing the port types are acceptable to the logic synthesis tool. Usually, only generics of type integer are supported. Whether a synthesis tool will "flatten through" a component, treat is as a "black box", or recognise it as a primitive is usually under the user's control.
+              </div>
+            </div><br><br>
+
+            <!-- Component Instantiation -->
+            <a class="anchor" id="Component_Instantiation"></a>
+            <h2>Component Instantiation</h2>
+
+            <!-- USE -->
+            <table border="0" cellpadding="15">
+              <tr>
+                <td bgcolor="lightcyan">Concurrent Statement</td>
+                <td>---- used in ----&gt;</td>
+                <td bgcolor="lightgreen">Architecture</td>
+              </tr>
+            </table><br>
+
+            <!-- SYNTAX -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Syntax</h3>
+              </div>
+              <div class="panel-body">
+<pre><code class="vhdl">instance_label : component_name
+  generic map (generic_association_list)
+  port map (port_association_list);</code></pre>
+              </div>
+            </div>
+
+            <!-- RULES AND EXAMPLES -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Rules and Examples</h3>
+              </div>
+              <div class="panel-body">
+The instance label is compulsory. The component name must match the relevant component declaration.
+<pre><code class="vhdl">architecture STRUCT of INC is
+  signal X,Y,S,C : bit;
+  component HALFADD
+    port (
+      A,B : in bit;
+      SUM, CARRY : out bit
+    );
+  end component;
+begin
+  U1: HALFADD
+    port map (X,Y,S,C);
+    -- other statements
+end STRUCT;</code></pre>
+
+The association list defines which local signals connect to which component ports. The association list above is <b>positional</b>, i.e. the signals are connected up in the order in which the ports were declared.<br/><br/>
+
+The alternative is <b>named association</b>, where ports are explicitly referenced and order is not important:
+<pre><code class="vhdl">ADDER1 : HALFADD
+  port map (
+    B     =&gt; Y,
+    A     =&gt; X,
+    SUM   =&gt; S,
+    CARRY =&gt; C);</code></pre>
+
+Ports may be left unconnected using the keyword <b>open</b>:
+<pre><code class="vhdl">ADDER2 : HALFADD
+  port map (
+    B     =&gt; Y,
+    A     =&gt; X,
+    SUM   =&gt; S,
+    CARRY =&gt; open);</code></pre>
+
+An instance of a component with generics, has a <b>generic map</b> declared before the port map:
+<pre><code class="vhdl">U1 : PARITY
+  generic map (
+    N =&gt; 8)
+  port map (
+    A   =&gt; DATA_BYTE,
+    ODD =&gt; PARITY_BYTE);</code></pre>
+              </div>
+            </div>
+
+            <!-- SYNTHESIS ISSUES -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Synthesis Issues</h3>
+              </div>
+              <div class="panel-body">
+                Component instantiation is supported for synthesis, although <b>generic map</b> is usually ignored. Whether a logic synthesis tool will "flatten through" a component, treat it as a "black box", or recognise it as a primitive is usually under the user's control.
+              </div>
+            </div><br><br>
+
+            <!-- Configuration Specification -->
+            <a class="anchor" id="Configuration_Specification"></a>
+            <h2>Configuration Specification</h2>
+
+            <!-- USE -->
+            <table border="0" cellpadding="15">
+              <tr>
+                <td bgcolor="lightcyan">Specification</td>
+                <td>---- used in ----&gt;</td>
+                <td bgcolor="lightgreen">Architecture</td>
+              </tr>
+            </table><br>
+
+            <!-- SYNTAX -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Syntax</h3>
+              </div>
+              <div class="panel-body">
+<pre><code class="vhdl">for instance_label : component_name
+  use entity
+    library_name.entity_name(architecture_name);</code></pre>
+<pre><code class="vhdl">for instance_label : component_name
+  use configuration library_name.config_name;</code></pre>
+              </div>
+            </div>
+
+            <!-- RULES AND EXAMPLES -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Rules and Examples</h3>
+              </div>
+              <div class="panel-body">
+Using a configuration <b>specification</b>, components may be configured within an architecture which instances them, rather than using a separate configuration declaration design unit. This is less flexible, as the architecture has to be re-analysed to change the configuration.<br/><br/>
+
+Component instances may be individually configured:
+<pre><code class="vhdl">architecture STR of XA is
+  component HALFADD
+    port (
+      A,B : in bit;
+      SUM, CARRY : out bit);
+  end component;
+  component ORGATE
+    port (
+      A,B : in bit;
+      Z : out bit);
+  end component;
+
+  for U1 : HALFADD use entity
+    work.HA(BEHAVE);
+  for U2 : ORGATE use entity
+    work.OG(BEHAVE);
+begin
+  U1 : HALFADD port map (A,B,S,C);
+  U2: ORGATE port map (A,B,Y);
+end STR;</code></pre>
+
+The keyword <b>all</b> may be used to refer to all instances of a component:
+<pre><code class="vhdl">for all : FULLADDER use entity
+  work.FULLADD(STRUCTURAL);</code></pre>
+
+The keyword <b>others</b> may also be used to refer to all instances not explicitly mentioned.<br/><br/>
+
+If the port names on an entity do not match those on the component declaration, a port map may be included in the configuration:
+<pre><code class="vhdl">for all : HALFADD use entity
+  work.HALFADD(BEHAVE)
+  port map (
+    X =&gt; A,
+    Y =&gt; B,
+    S =&gt; SUM,
+    C =&gt; CARRY);</code></pre>
+
+In the abscence of an explicit configuration for any part of a model, <b>default binding</b> will occur. For each unbound instance of every component, an entity will be selected whose name, port names and port types etc. match thosein the corresponding component declaration. Where an entity has more than one architecture, the <b>last analysed</b> architecture will be used.
+              </div>
+            </div>
+
+            <!-- SYNTHESIS ISSUES -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Synthesis Issues</h3>
+              </div>
+              <div class="panel-body">
+                Configuration is not usually supported by synthesis tools. The user usually has to ensure that component and entity names and ports match, and that only one architecture per entity is analysed.
+              </div>
+            </div><br><br>
+
+            <!-- Constant Declaration -->
+            <a class="anchor" id="Constant_Declaration"></a>
+            <h2>Constant Declaration</h2>
+
+            <!-- USE -->
+            <table border="0" cellpadding="15">
+              <tr>
+                <td bgcolor="lightcyan">Declaration</td>
+                <td>---- used in ----&gt;</td>
+                <td bgcolor="lightgreen">Entity<br>Package<br>Process<br>Architecture<br>Procedure<br>Function</td>
+              </tr>
+            </table><br>
+
+            <!-- SYNTAX -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Syntax</h3>
+              </div>
+              <div class="panel-body">
+                <pre><code class="vhdl">constant constant_name : type := value;</code></pre>
+              </div>
+            </div>
+
+            <!-- RULES AND EXAMPLES -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Rules and Examples</h3>
+              </div>
+              <div class="panel-body">
+<pre><code class="vhdl">constant BUS_WIDTH : integer := 8;
+constant FOUR_ONES : std_logic_vector(3 downto 0) := "1111";
+constant PERIOD : time := 10 ns;
+constant MAX_SIM_TIME : time:= 50 * PERIOD;</code></pre>
+
+The values of array constants of types other than stribg, bit_vector and std_logic_vector, must be set using aggregates.
+<pre><code class="vhdl">type T_CLOCK_TIME is ARRAY(3 downto 0) of integer range 0 to 9;
+constant TWELVE_O_CLOCK : T_CLOCK_TIME := (1,2,0,0);</code></pre>
+
+In a package, a constant may be <b>deferred</b>. This means its value is defined in the package body. the value may be changed by re-analysing only the package body.
+<pre><code class="vhdl">package P is
+  constant C : integer;
+end P;
+
+package body P is
+  constant C : integer := 200;
+end P;</code></pre>
+
+Provided they are of the correct type, constants may be used in any expression. They may be associated with generics of component instances and passed into procedures.
+<pre><code class="vhdl">process
+  type T_DATA is array (0 to 3) of bit_vector(7 downto 0);
+  constant DATA : T_DATA := (
+    "00001000",
+    "00010001",
+    "00100010",
+    "01000011");
+begin
+  for I in DATA'range loop
+    serialize_byte(DATA(I), DOUT);
+  end loop;
+end process;</code></pre>
+              </div>
+            </div>
+
+            <!-- SYNTHESIS ISSUES -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Synthesis Issues</h3>
+              </div>
+              <div class="panel-body">
+                Constants are supported for synthesis, providing they are of a type acceptable to the logic synthesis tool. They are either synthesised as connections to logic '1' or '0', or are used to help minimise the number of gatyes required. Deferred constants may not bwe supported.
+              </div>
+            </div><br><br>
+
+            <!-- Entity -->
+            <a class="anchor" id="Entity"></a>
+            <h2>Entity</h2>
+
+            <!-- USE -->
+            <table border="0" cellpadding="15">
+              <tr>
+                <td bgcolor="lightcyan">Primary Library Unit</td>
+              </tr>
+            </table><br>
+
+            <!-- SYNTAX -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Syntax</h3>
+              </div>
+              <div class="panel-body">
+<pre><code class="vhdl">entity entity_name is
+  generic (generic_list);
+  port (port_list);
+end entity_name;</code></pre>
+              </div>
+            </div>
+
+            <!-- RULES AND EXAMPLES -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Rules and Examples</h3>
+              </div>
+              <div class="panel-body">
+The port list must define the name, the mode (i.e. direction) and the type of each port on the <b>entity</b>:
+<pre><code class="vhdl">entity HALFADD is
+  port (
+    A,B : in bit;
+    SUM, CARRY : out bit
+  );
+end HALFADD;</code></pre>
+
+<pre><code class="vhdl">entity COUNTER is
+  port (
+    CLK   : in  std_ulogic;
+    RESET : in  std_ulogic;
+    Q     : out integer range 0 to 15
+  );
+end COUNTER;</code></pre>
+
+The top-level <b>entity</b> in a simulateable <b>VHDL</b> model is usually "empty", i.e. has no ports. Its architecture is usually the "test bench":
+<pre><code class="vhdl">entity TB_DISPLAY is
+end TB_DISPLAY;
+
+architecture TEST of TB_DISPLAY is
+-- signal declarations
+-- component declaration(s)
+begin
+-- component instance(s)
+-- test processes
+end TEST;</code></pre>
+
+Each <b>entity</b> port acts like a signal which is visible in the architecture(s) of the <b>entity</b>. The mode (i.e.direction) of each port determines whether it may be read from or written to in the architecture:
+<table class="table table-bordered">
+  <tbody>
+    <tr>
+      <th>Mode</th> <th>Read in Arch?</th> <th>Write in Arch</th>
+    </tr>
+    <tr>
+      <td>in</td> <td>Yes</td> <td>No</td>
+    </tr>
+    <tr>
+      <td>out</td> <td>No</td> <td>Yes</td>
+    </tr>
+    <tr>
+      <td>inout</td> <td>Yes</td> <td>Yes</td>
+    </tr>
+    <tr>
+      <td>buffer</td> <td>Yes</td> <td>Yes</td>
+    </tr>
+  </tbody>
+</table>
+
+If an <b>entity</b> has generics, these must be declared before the ports. They do not have a mode, as by definition they can only pass information into the <b>entity</b>:
+<pre><code class="vhdl">entity AN2_GENERIC is
+  generic (
+    DELAY: time := 1.0 ns
+  );
+  port (
+    A,B : in std_ulogic;
+    Z : out std_ulogic
+  );
+end AN2_GENERIC;</code></pre>
+
+An <b>entity</b> may also contain declarations. Items declared are visible within the arhitecture(s) of the <b>entity</b>.
+              </div>
+            </div>
+
+            <!-- SYNTHESIS ISSUES -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Synthesis Issues</h3>
+              </div>
+              <div class="panel-body">
+                Entity declarations are supported for suynthesis, providing the port types are acceptable to the logic synthesis tool. Usually, only generics of type integer are supported. Values for generics have to be supplied by the user at the time of synthesis.
+              </div>
+            </div><br><br>
+
+            <!-- Exit Statement -->
+            <a class="anchor" id="Exit_Statement"></a>
+            <h2>Exit Statement</h2>
+
+            <!-- USE -->
+            <table border="0" cellpadding="15">
+              <tr>
+                <td bgcolor="lightcyan">Sequential Statement</td>
+                <td>---- used in ----&gt;</td>
+                <td bgcolor="lightgreen">Loop<br>For Loop<br>While Loop</td>
+              </tr>
+            </table><br>
+
+            <!-- SYNTAX -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Syntax</h3>
+              </div>
+              <div class="panel-body">
+                <pre><code class="vhdl">exit;</code></pre>
+                <pre><code class="vhdl">exit loop_label;</code></pre>
+                <pre><code class="vhdl">exit loop_label when condition;</code></pre>
+              </div>
+            </div>
+
+            <!-- RULES AND EXAMPLES -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Rules and Examples</h3>
+              </div>
+              <div class="panel-body">
+The exit statement is used to terminate a <b>while, for</b> or infinite <b>loop</b>:
+<pre><code class="vhdl">for I in 0 to 7 loop
+  if FINISH_LOOP_EARLY = '1' then
+    exit;
+  else
+    A_BUS &lt;= TABLE(I);
+    wait for 5 ns;
+  end if;
+end loop;</code></pre>
+
+The exit statement may test a boolean condition directly using the <b>when</b> keyword.
+<pre><code class="vhdl">process(A)
+  variable I : integer range 0 to 4;
+begin
+  Z &lt;= "0000";
+  I := 0;
+  loop exit when I = 4;
+    if (A = I) then
+      Z(I) &lt;= '1';
+    end if;
+    I := I + 1;
+  end loop;
+end process;</code></pre>
+
+For an exit statement within a set of nested loops, the optional loop label may be used to indicate which level of loop is to be exited. The default (no label) is the innermost loop:
+<pre><code class="vhdl">L1 : for I in 0 to 7 loop
+  L2: for J in 0 to 7 loop
+    exit L1 when QUIT_BOTH_LOOPS = '1';
+    exit when QUIT_INNER_LOOP = '1';
+    -- other statements
+  end loop L2;
+end loop L1;</code></pre>
+              </div>
+            </div>
+
+            <!-- SYNTHESIS ISSUES -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Synthesis Issues</h3>
+              </div>
+              <div class="panel-body">
+                The exit statement is supported by some logic synthesis tools, with certain restrictions.
+              </div>
+            </div><br><br>
+
+            <!-- File Declaration -->
+            <a class="anchor" id="File_Declaration"></a>
+            <h2>File Declaration</h2>
+
+            <!-- USE -->
+            <table border="0" cellpadding="15">
+              <tr>
+                <td bgcolor="lightcyan">Declaration</td>
+                <td>---- used in ----&gt;</td>
+                <td bgcolor="lightgreen">Package<br>Process<br>Architecture<br>Procedure<br>Function</td>
+              </tr>
+            </table><br>
+
+            <!-- SYNTAX -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Syntax</h3>
+              </div>
+              <div class="panel-body">
+                <pre><code class="vhdl">file logical_name : file_type is mode "file_name";</code></pre>
+              </div>
+            </div>
+
+            <!-- RULES AND EXAMPLES -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Rules and Examples</h3>
+              </div>
+              <div class="panel-body">
+Usually, files of type <b>text</b> are used as they are portable between different VHDL simulators. The <b>mode</b> of the <b>file</b> refers to the direction of data flow, and may be either <b>in</b> (i.e. a
+read-only <b>file</b>) or <b>out</b> (a write-only <b>file</b>):
+<pre><code class="vhdl">use std.textio.all;
+package REF_PACK is
+  file INFILE  : text is in  "in.dat";
+  file OUTFILE : text is out "out.dat";
+end REF_PACK;</code></pre>
+
+Text files may be read by using the <b>endfile, readline</b> and <b>read</b> subprograms defined in the package <b>std.textio</b>:
+<pre><code class="vhdl">READ_FILE : process
+  variable VEC_LINE : line;
+  variable VEC_VAR : bit_vector(0 to 7);
+  file VEC_FILE : text is in "stim.vec";
+begin
+  while not endfile(VEC_FILE) loop
+    readline (VEC_FILE, VEC_LINE);
+    read (VEC_LINE, VEC_VAR);
+    A_BUS &lt;= VEC_VAR;
+    wait for 10 ns;
+  end loop;
+  wait;
+end process READ_FILE;</code></pre>
+
+The textio package <b>must</b> be made visible by the clause:
+<pre><code class="vhdl">use std.textio.all;</code></pre>
+
+Text files may be written by using the <b>write</b> and <b>writeln</b> subprograms, also defined in the textio package. Output data may be formatted using optional parameters for <b>write</b>.<br/><br/>
+
+Textio <b>read</b> and <b>write</b> procedures are defined for the types <b>bit, bit_vector, bolean, character, integer, real, string</b> and <b>time</b>. They are <b>not</b> compatible with user-defined types or std_logic_1164 types (although some vendors supply routines for the std_logic_1164_types).<br/><br/>
+
+Text files may be written by using the <b>writeln</b> and <b>write</b> subprograms defined in the package <b>std.textio</b>
+<pre><code class="vhdl">WRITE_FILE : process (CLK)
+  variable VEC_LINE : line;
+  file VEC_FILE : text is out "results";
+begin
+  -- strobe OUT_DATA on falling edges
+  -- of CLK and write value out to file
+  if CLK='0' then
+    write (VEC_LINE, OUT_DATA);
+    writeline (VEC_FILE, VEC_LINE);
+  end if;
+end process WRITE_FILE;</code></pre>
+
+A <b>file</b> (read or write) is opened in VHDL when the structure in which it is declared is elaborated. This means that files declared in processes or architectures are opened only once at the beginning of a simulation. files declared in procedures are reopened at the beginning of the <b>file</b> every time the procedure is elaborated (every time it is executed) and are closed every time the procedure finishes execution.
+              </div>
+            </div>
+
+            <!-- SYNTHESIS ISSUES -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Synthesis Issues</h3>
+              </div>
+              <div class="panel-body">
+                File declarations and operations are not supported by logic synthesis tools.
+              </div>
+            </div><br><br>
+
+            <!-- For Loop -->
+            <a class="anchor" id="For_Loop"></a>
+            <h2>For Loop</h2>
+
+            <!-- USE -->
+            <table border="0" cellpadding="15">
+              <tr>
+                <td bgcolor="lightcyan">Sequential Statement</td>
+                <td>---- used in ----&gt;</td>
+                <td bgcolor="lightgreen">Process<br>Function<br>Procedure</td>
+              </tr>
+            </table><br>
+
+            <!-- SYNTAX -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Syntax</h3>
+              </div>
+              <div class="panel-body">
+<pre><code class="vhdl">optional_label : for parameter in range loop
+  sequential statements
+end loop label;</code></pre>
+              </div>
+            </div>
+
+            <!-- RULES AND EXAMPLES -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Rules and Examples</h3>
+              </div>
+              <div class="panel-body">
+The <b>for</b> loop defines a loop parameter which takes on the type of the range specified. For example, the range <b>0 to 3</b> implies an integer:
+<pre><code class="vhdl">process (A)
+begin
+  Z &lt;= "0000";
+  for I in o to 3 loop
+    if (A = I) then
+      Z(I) &lt;= '1';
+    end if;
+  end loop;
+end process;</code></pre>
+
+Attributes such as <b>'high, 'low</b> and <b>'range</b> may also be used to define the iterations of a <b>for</b> loop:
+<pre><code class="vhdl">process (A)#
+  variable TMP : std_ulogic;
+begin
+  TMP := '0';
+  for I in A'low to A'high loop
+    TMP := TMP xor A(I);
+  end loop;
+  ODD &lt;= TMP;
+end process;</code></pre>
+
+The range may be any discrete range, e.g. an enumerated type:
+<pre><code class="vhdl">type PRIMARY is (RED, GREEN, BLUE);
+type COLOUR is ARRAY (PRIMARY) of integer range 0 to 255;
+-- other statements
+MUX: process
+begin
+  for SEL in PRIMARY loop
+    V_BUS &lt;= VIDEO(SEL);
+    wait for 10 ns;
+  end loop;
+end process MUX;</code></pre>
+
+The loop parameter does not need to be declared: it is implicitly declared within the loop. It may not be modified within the loop:
+<pre><code class="vhdl">for I in 1 to 10 loop
+  if (REPEAT = '1') then
+    I := I-1;	-- Illegal
+  end if;
+end loop;</code></pre>
+              </div>
+            </div>
+
+            <!-- SYNTHESIS ISSUES -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Synthesis Issues</h3>
+              </div>
+              <div class="panel-body">
+                The for loop is supported for synthesis, providing:
+                <ol>
+                  <li>the loop range is static (i.e. implies a definite number of iterations), and</li>
+                  <li>the loop contains no <b>wait</b> statements.</li>
+                </ol>
+              </div>
+            </div><br><br>
+
+
+
+
+
+
+
 
 
 
