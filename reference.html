@@ -1597,10 +1597,399 @@ end loop;</code></pre>
               </div>
             </div><br><br>
 
+            <!-- Functions -->
+            <a class="anchor" id="Functions"></a>
+            <h2>Functions</h2>
 
+            <!-- USE -->
+            <table border="0" cellpadding="15">
+              <tr>
+                <td bgcolor="lightcyan">Declaration</td>
+                <td>---- used in ----&gt;</td>
+                <td bgcolor="lightgreen">Package<br>Entity<br>Architecture<br>Process<br>Procedure<br>Function</td>
+              </tr>
+            </table><br>
 
+            <!-- SYNTAX -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Syntax</h3>
+              </div>
+              <div class="panel-body">
+<pre><code class="vhdl">function function_name (parameter_list) return type is
+  declarations
+begin
+  sequential statements
+end function_name;</code></pre>
+              </div>
+            </div>
 
+            <!-- RULES AND EXAMPLES -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Rules and Examples</h3>
+              </div>
+              <div class="panel-body">
+A function can only have input parameters, so the mode (direction) is not specified.
+<pre><code class="vhdl">function BOOL_TO_SL(X : boolean) return std_ulogic is
+begin
+  if X then
+    return '1';
+  else
+    return '0';
+  end if;
+end BOOL_TO_SL;</code></pre>
 
+A function may declare local variables. These do not retain their values between successive calls, but are re-initialised each time. Array-type parameters may be unconstrained:
+<pre><code class="vhdl">function PARITY (X : std_ulogic_vector) return std_ulogic is
+  variable TMP : std_ulogic := '0';
+begin
+  for J in X'range loop
+    TMP := TMP xor X(J);
+  end loop; -- works for any size X
+  return TMP;
+end PARITY;</code></pre>
+
+A function may contain any sequential statement except <b>signal assignment</b> and <b>wait</b>. A type-conversion function may be called in a port map, to match port type to signal type.<br/><br/>
+
+If a function is defined in a package, its body (the algorithm part) must be placed in the package body:
+<pre><code class="vhdl">package REF_PACK is function PARITY (X : bit_vector) return bit;
+end REF_PACK;
+
+package body REF_PACK is
+  function PARITY (X : bit_vector) return bit is
+  begin
+    -- function code
+  end PARITY;
+end REF_PACK;</code></pre>
+
+A function is called as an expression, in either a concurrent or sequential statement:
+<pre><code class="vhdl">architecture FUNCTIONS of PAR is
+begin
+  PARITY_BYTE &lt;= PARITY(DATA_BYTE);
+  PARITY_WORD &lt;= PARITY(DATA_WORD);
+end FUNCTIONS;</code></pre>
+              </div>
+            </div>
+
+            <!-- SYNTHESIS ISSUES -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Synthesis Issues</h3>
+              </div>
+              <div class="panel-body">
+                User-defined functions are usually supported for synthesis, providing they act on suitable data types. Different synthesis tools recognise various different type conversion and resolution functions. Most accept those deined in the std_logic_1164 package.
+              </div>
+            </div><br><br>
+
+            <!-- Generate Statement -->
+            <a class="anchor" id="Generate_Statement"></a>
+            <h2>Generate Statement</h2>
+
+            <!-- USE -->
+            <table border="0" cellpadding="15">
+              <tr>
+                <td bgcolor="lightcyan">Concurrent Statement</td>
+                <td>---- used in ----&gt;</td>
+                <td bgcolor="lightgreen">Architecture</td>
+              </tr>
+            </table><br>
+
+            <!-- SYNTAX -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Syntax</h3>
+              </div>
+              <div class="panel-body">
+<pre><code class="vhdl">label: for parameter in range generate
+  concurrent statements
+end generate label;</code></pre>
+              </div>
+            </div>
+
+            <!-- RULES AND EXAMPLES -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Rules and Examples</h3>
+              </div>
+              <div class="panel-body">
+The for .. generate statement is usually used to instantiate "arrays" of components. The generate parameter may be used to index array-type signals associated with component ports:
+<pre><code class="vhdl">architecture GEN of REG_BANK is
+  component REG
+    port (
+      D, CLK, RESET : in  std_ulogic;
+      Q             : out std_ulogic
+    );
+  end component;
+begin
+  GEN_REG : for I in 0 to 3 generate
+    REGX : REG port map (DIN(I), CLK, RESET, DOUT(I));
+  end generate GEN_REG;
+end GEN;</code></pre>
+
+A label is compulsory with a generate statement.<br/><br/>
+
+The for .. generate statement is particularily powerful when used with integer generics.<br/><br/>
+
+Instance labels inside a generate statement do not need to have an index:
+<pre><code class="vhdl">REGX(I) :	-- Illegal</code></pre>
+
+The for .. generate statements may be nested to create two-dimensional instance "arrays".<br/><br/>
+
+Another form of generate is the if .. generate statement. This is usually used within a for .. generate
+statement, to account for irregularity. For instance, a ripple-carry adder with no carry-in:
+<pre><code class="vhdl">architecture GEN of RIPPLE is
+  component FULLADD
+    port (
+      A, B, CIN  : in  bit;
+      SUM, CARRY : out bit
+    );
+  end component;
+
+  component HALFADD
+    port (
+      A, B       : in bit;
+      SUM, CARRY : out bit
+    );
+  end component;
+
+  signal C : bit_vector(0 to 7);
+
+begin
+
+  GEN_ADD: for I in 0 to 7 generate
+
+    LOWER_BIT: if I=0 generate
+      U0: HALFADD port map (A(I), B(I), S(I), C(I));
+    end generate LOWER_BIT;
+
+    UPPER_BITS: if I&gt;0 generate
+      UX: FULLADD port map (A(I), B(I), C(I-1), S(I), C(I));
+    end generate UPPER_BITS;
+
+  end generate GEN_ADD;
+
+  COUT &lt;= C(7);
+
+end GEN;</code></pre>
+              </div>
+            </div>
+
+            <!-- SYNTHESIS ISSUES -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Synthesis Issues</h3>
+              </div>
+              <div class="panel-body">
+                Generate statements are usually supported for synthesis.
+              </div>
+            </div><br><br>
+
+            <!-- Generics -->
+            <a class="anchor" id="Generics"></a>
+            <h2>Generics</h2>
+
+            <!-- USE -->
+            <table border="0" cellpadding="15">
+              <tr>
+                <td bgcolor="lightcyan">Declaration</td>
+                <td>---- used in ----&gt;</td>
+                <td bgcolor="lightgreen">Entity<br>Component</td>
+              </tr>
+            </table><br>
+
+            <!-- SYNTAX -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Syntax</h3>
+              </div>
+              <div class="panel-body">
+<pre><code class="vhdl">entity entity_name is
+  generic (generic list);
+  port    (port list);
+end entity_name;</code></pre><br/>
+
+<pre><code class="vhdl">component component_name
+  generic (generic_list);
+  port    (port_list);
+end component;</code></pre><br/>
+
+<pre><code class="vhdl">instance_label: component_name
+  generic map (generic_association_list)
+  port map    (port_association_list);</code></pre>
+              </div>
+            </div>
+
+            <!-- RULES AND EXAMPLES -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Rules and Examples</h3>
+              </div>
+              <div class="panel-body">
+Generics are a means of passing specific information into an entity. They do not have a mode (direction):
+<pre><code class="vhdl">entity PARITY is
+  generic (
+    N : integer
+  );
+  port (
+    A   : in  std_ulogic_vector(N-1 downto 0);
+    ODD : out std_ulogic
+  );
+end PARITY;</code></pre>
+
+In the corresponding component declaration, the generics are also declared before the ports:
+<pre><code class="vhdl">component PARITY
+  generic (
+    N : integer
+  );
+  port (
+    A   : in  std_ulogic_vector(N-1 downto 0);
+    ODD : out std_ulogic
+  );
+end component;</code></pre>
+
+An instance of a component with generics, has a generic map declared before the port map (note: there is no semicolon between them!). This allows a value to be set for the generic:
+<pre><code class="vhdl">U1 : PARITY
+  generic map (
+    N =&gt; 8
+  )
+  port map (
+    A   =&gt; DATA_BYTE,
+    ODD =&gt; PARITY_BYTE
+  );</code></pre>
+
+By declaring generics of type time, delays may be programmed on an instance-by-instance basis. Generics may be given a default value, in case a value is not supplied for all instances:
+<pre><code class="vhdl">entity AN2_GENERIC is
+  generic (
+    DELAY: time := 1.0 ns
+  );
+  port (
+    A, B : in std_ulogic;
+    Z    : out std_ulogic
+  );
+end AN2_GENERIC;
+
+architecture BEH of AN2_GENERIC is
+begin
+  Z &lt;= A and B after DELAY;
+end A;</code></pre>
+
+The value of a generic may be read in either the entity or any of its architectures. It may even be passed into lower-level components.<br/><br/>
+
+Default values for generics may be given in an entity declaration or in a component declaration. Generics may be set (via a generic map) in an instantiation, or a configuration. The rules regarding different combinations of these are complex.
+              </div>
+            </div>
+
+            <!-- SYNTHESIS ISSUES -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Synthesis Issues</h3>
+              </div>
+              <div class="panel-body">
+                Usually, only generics of type integer are supported. Values for generics in an entity declaration have to be supplied by the user to allow elaboration at the time of synthesis. generic map is usually ignored.
+              </div>
+            </div><br><br>
+
+            <!-- If Statement -->
+            <a class="anchor" id="If_Statement"></a>
+            <h2>If Statement</h2>
+
+            <!-- USE -->
+            <table border="0" cellpadding="15">
+              <tr>
+                <td bgcolor="lightcyan">Sequential Statement</td>
+                <td>---- used in ----&gt;</td>
+                <td bgcolor="lightgreen">Process<br>Function<br>Procedure</td>
+              </tr>
+            </table><br>
+
+            <!-- SYNTAX -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Syntax</h3>
+              </div>
+              <div class="panel-body">
+<pre><code class="vhdl">if condition_1 then
+  sequential statements
+elsif condition2 then
+  sequential statements
+else
+  sequential statements
+end if;</code></pre>
+              </div>
+            </div>
+
+            <!-- RULES AND EXAMPLES -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Rules and Examples</h3>
+              </div>
+              <div class="panel-body">
+Conditions may overlap - <b>only</b> the statements after the <b>first</b> "true" condition are executed.
+<pre><code class="vhdl">if (X = 5) and (Y = 9) then
+  Z &lt;= A;
+elsif (X &gt;= 5) then
+  Z &lt;= B;
+else
+  Z &lt; C;
+end if;</code></pre>
+
+The <b>elsif</b> and <b>else</b> clauses are optional. This process models a transparent latch:
+<pre><code class="vhdl">process (EN, D)
+begin
+  if (EN = '1') then
+    Q &lt;= D;
+  end if;
+end process;</code></pre>
+
+A condition is any boolean expression:
+<pre><code class="vhdl">process (ALARM_TIME, CURRENT_TIME)
+  variable AL_EQ_CUR: boolean;
+begin
+  AL_EQ_CUR := (ALARM_TIME = CURRENT_TIME);
+  if AL_EQ_CUR then
+    SOUND_ALARM &lt;= '1';
+  else
+    SOUND_ALARM &lt;= '0';
+  end if;
+end process;</code></pre>
+
+An <b>if</b> statement may be used to infer edge-triggered registers in a process sensitive to a clock signal. Asynchronous reset may also be modeled:
+<pre><code class="vhdl">process(CLK, RESET)
+begin
+  if RESET = '1' then
+    COUNT &lt;= 0;
+  elseif CLK'event and CLK='1' then
+    if (COUNT &gt;= 9) then
+      COUNT &lt;= 0;
+    else
+      COUNT &lt;= COUNT + 1;
+    end if;
+  end if
+end process;</code></pre>
+
+<b>If</b> statements may be used to specify conditional assignments or state transitions in a finite state machine:
+<pre><code class="vhdl">case READ_CPU_STATE is
+  when WAITING =&gt;
+    if CPU_DATA_VALID = '1' then
+      CPU_DATA_READ &lt;= '1';
+      READ_CPU_STATE &lt;= DATA1;
+    end if;
+  when DATA1 =&gt;
+  -- other branches of the case statement
+end case;</code></pre>
+              </div>
+            </div>
+
+            <!-- SYNTHESIS ISSUES -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Synthesis Issues</h3>
+              </div>
+              <div class="panel-body">
+                The <b>if</b> statement is generally synthesisable. Where an <b>if</b> statement is used to detect the clock edge in a "clocked process", certain conventions must be obeyed. Using an <b>if</b> statement without an <b>else</b> clause in a "combinational process" can result in latches being inferred, unless all signals driven by the process are given unconditional default assignments. For more details see Process.
+              </div>
+            </div><br><br>
 
 
 
