@@ -94,20 +94,18 @@
         <li><a href="#Procedures">Procedures</a></li>
         <li><a href="#Process">Process</a></li>
         <li><a href="#Qualified_Expressions">Qualified Expressions</a></li>
+        <li><a href="#Signal_Assignment-Concurrent">Signal Assignment - Concurrent</a></li>
+        <li><a href="#Signal_Assignment-Conditional">Signal Assignment - Conditional</a></li>
+        <li><a href="#Signal_Assignment-Sequential">Signal Assignment - Sequential</a></li>
         <li><a href="#Signal_Declaration">Signal Declaration</a></li>
-        <li><a href="#Concurrent_Signal_Assignment">Concurrent Signal Assignment</a></li>
-        <li><a href="#Conditional_Signal_Assignment">Conditional Signal Assignment</a></li>
-        <li><a href="#Sequential_Signal_Assignment">Sequential Signal Assignment</a></li>
         <li><a href="#Subtype_Declaration">Subtype Declaration</a></li>
         <li><a href="#Type_Conversion">Type Conversion</a></li>
         <li><a href="#Type_Declaratio">Type Declaration</a></li>
         <li><a href="#Use_Clause">Use Clause</a></li>
-        <ul>
-          <li><a href="#Variable_Declaration">Variable Declaration</a></li>
-          <li><a href="#Variable_Assignment">Variable Assignment</a></li>
-          <li><a href="#Wait_Statement">Wait Statement</a></li>
-          <li><a href="#While_and_Infinite_Loop">While and Infinite Loop</a></li>
-        </ul>
+        <li><a href="#Variable_Declaration">Variable Declaration</a></li>
+        <li><a href="#Variable_Assignment">Variable Assignment</a></li>
+        <li><a href="#Wait_Statement">Wait Statement</a></li>
+        <li><a href="#While_and_Infinite_Loop">While and Infinite Loop</a></li>
       </ul>
     </div>
     <!-- /#sidebar-wrapper -->
@@ -1991,19 +1989,1736 @@ end case;</code></pre>
               </div>
             </div><br><br>
 
+            <!-- Literals -->
+            <a class="anchor" id="Literals"></a>
+            <h2>Literals</h2>
 
+            <!-- USE -->
+            <table border="0" cellpadding="15">
+              <tr>
+                <td bgcolor="lightcyan">Literal</td>
+                <td>---- used in ----&gt;</td>
+                <td bgcolor="lightgreen">Expression</td>
+              </tr>
+            </table><br>
 
+            <!-- SYNTAX -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Syntax</h3>
+              </div>
+              <div class="panel-body">
+                <pre><code class="vhdl">Numeric Value</code></pre>
+              </div>
+            </div>
 
+            <!-- RULES AND EXAMPLES -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Rules and Examples</h3>
+              </div>
+              <div class="panel-body">
+Numeric literals with a decimal point are real, those without are integer;
+<pre><code class="vhdl">constant FREEZE : integer := 32;
+constant TEMP : real := 32.0;</code></pre>
 
+Numeric literasls may be expressed in any base from 2 to 16. They may also be broken up using underscore, for clarity.
+<pre><code class="vhdl">A_INT &lt;= 16#FF#;
+B_INT &lt;= 2#1010_1010#;
+MONEY := 1_000_000.0;</code></pre>
+
+Numeric literasls may be expressed in any base from 2 to 16. They may also be broken up using underscore, for clarity.
+<pre><code class="vhdl">A_INT &lt;= 16#FF#;
+B_INT &lt;= 2#1010_1010#;
+MONEY := 1_000_000.0;</code></pre>
+
+Real numbers may be expressed in exponential form:
+<pre><code class="vhdl">FACTOR := 2.2E-6;</code></pre>
+
+Literals of type time (and other physical types) must have units. The units should be preceded by a space, although some tools may not require this:
+<pre><code class="vhdl">constant DEL1 :time := 10 ns;
+constant DEL2 :time := 2.27 us;</code></pre>
+
+Literals of enumerated types may either be characters (as for bit and std_logic), or identifiers:
+<pre><code class="vhdl">type MY_LOGIC is ('X','0','1','Z');
+type T_STATE is (IDLE, READ, END_CYC);
+signal CLK : MY_LOGIC := '0';
+signal STATE : T_STATE := IDLE;</code></pre>
+
+Literals for arrays of characters, such as string, bit_vector and std_logic_vector are placed in double quotes:
+<pre><code class="vhdl">constant FLAG :bit_vector(0 to 7) := "11111111";
+constant MSG : string := "Hello";</code></pre>
+
+Bit vector literals may be expressed in binary (the default), opctal or hex. They may also contain embedded underscores for clarity. These forms may <b>not</b> be used as std_logic_vector literals:
+<pre><code class="vhdl">BIT_8_BUS &lt;= B"1111_1111";
+BIT_9_BUS &lt;= O"353";
+BIT_16_BUS &lt;= X"AA55";</code></pre>
+
+For how to define other array literals and record literals, see arrays and aggregrates.<br/><br/>
+
+Non-printing characters may be included in a string literal using concatenation:
+<pre><code class="vhdl">constant TWO_LINE_MSG : string := "Hello" &amp; CR &amp; "World";</code></pre>
+              </div>
+            </div>
+
+            <!-- SYNTHESIS ISSUES -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Synthesis Issues</h3>
+              </div>
+              <div class="panel-body">
+                Literals are supported for synthesis, providing they are of a type acceptable to the logic synthesis tool. They are either synthesised as connections to logic '1' or '0', or are used to help minimised the number of gates required.
+              </div>
+            </div><br><br>
+
+            <!-- Names -->
+            <a class="anchor" id="Names"></a>
+            <h2>Names</h2>
+
+            <!-- USE -->
+            <table border="0" cellpadding="15">
+              <tr>
+                <td bgcolor="lightcyan">Identifier</td>
+                <td>---- used in ----&gt;</td>
+                <td bgcolor="lightgreen">Entity<br>Architecture<br>Package<br>Package Body<br>Configuration</td>
+              </tr>
+            </table><br>
+
+            <!-- SYNTAX -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Syntax</h3>
+              </div>
+              <div class="panel-body">
+                <pre><code class="vhdl">Name</code></pre>
+              </div>
+            </div>
+
+            <!-- RULES AND EXAMPLES -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Rules and Examples</h3>
+              </div>
+              <div class="panel-body">
+Names (or identifiers) may consist of letters, numbers and underscore:
+<pre><code class="vhdl">architecture RTL of UNIT_34 is
+signal SOUND_ALARM : std_ulogic;</code></pre>
+
+Case is not significant, so the following are all equivalent:
+<pre><code class="vhdl">An_Example_Name
+AN_EXAMPLE_NAME
+an_example_name</code></pre>
+
+Names must start with a letter:
+<pre><code class="vhdl">signal 16_BIT_BUS : integer;   -- illegal
+signal _BUS_16_BIT_ : integer; -- illegal
+signal BUS_16_BIT : integer;   -- OK</code></pre>
+
+Names may be of arbitary length.<br/><br/>
+
+None of the VHDL keywords (i.e. signal, bus, component, wait, etc.) may be reused as a name.
+              </div>
+            </div>
+
+            <!-- SYNTHESIS ISSUES -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Synthesis Issues</h3>
+              </div>
+              <div class="panel-body">
+                Legal names (identifiers) are supported for synthesis, but long names may be truncated in some tools, or when using certain output netlist formats.
+              </div>
+            </div><br><br>
+
+            <!-- Next Statement -->
+            <a class="anchor" id="Next_Statement"></a>
+            <h2>Next Statement</h2>
+
+            <!-- USE -->
+            <table border="0" cellpadding="15">
+              <tr>
+                <td bgcolor="lightcyan">Sequential Statement</td>
+                <td>---- used in ----&gt;</td>
+                <td bgcolor="lightgreen">Loop<br>For Loop<br>While Loop</td>
+              </tr>
+            </table><br>
+
+            <!-- SYNTAX -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Syntax</h3>
+              </div>
+              <div class="panel-body">
+                <pre><code class="vhdl">next;</code></pre>
+                <pre><code class="vhdl">next loop_label;</code></pre>
+                <pre><code class="vhdl">next loop_label when condition;</code></pre>
+              </div>
+            </div>
+
+            <!-- RULES AND EXAMPLES -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Rules and Examples</h3>
+              </div>
+              <div class="panel-body">
+The next statement is used to prematurely terminate the current iteration of a while, for, or infinite loop:
+<pre><code class="vhdl">for I in 0 to 7 loop
+  if SKIP = '1' then
+    next;
+  else
+    N_BUS &lt;= TABLE(I);
+    wait for 5 ns;
+  end if;
+end loop;</code></pre>
+
+The next statement may test a boolean condition directly, using the when keyword:
+<pre><code class="vhdl">process (A)
+begin
+  Z &lt;= "0000";
+  for I in 0 to 3 loop
+    next when A /= I;
+    Z(I) &lt;= '1';
+  end loop;
+end process;</code></pre>
+
+For a next statement within a set of nested loops, the optional loop label may be used to indicate which level of loop is to be iterated. The default (no label) is the innermost loop. If an outer loop is specified, loops inside are effectively exited:
+<pre><code class="vhdl">READ_BUS: process
+begin
+  RESETLOOP: loop
+    VALID_CHECK: while (CPU_DATA_VALID /= '1') loop
+      wait until rising_edge(CLK) or RESET = '1';
+      next RESETLOOP when RESET='1';
+    end loop VALID_CHECK;
+    CPU_DATA_READ &lt;= '1';
+    wait until rising_edge(CLK);
+    LOCAL_BUFFER &lt;= DATA_BUS;
+    wait until rising_edge(CLK);
+    CPU_DATA_READ &lt;= '0';
+  end loop RESETLOOP;
+end process READ_BUS;</code></pre>
+              </div>
+            </div>
+
+            <!-- SYNTHESIS ISSUES -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Synthesis Issues</h3>
+              </div>
+              <div class="panel-body">
+                The next statement is supported by some logic synthesis tools, with certain restrictions.
+              </div>
+            </div><br><br>
+
+            <!-- Null Statement -->
+            <a class="anchor" id="Null_Statement"></a>
+            <h2>Null Statement</h2>
+
+            <!-- USE -->
+            <table border="0" cellpadding="15">
+              <tr>
+                <td bgcolor="lightcyan">Sequential Statement</td>
+                <td>---- used in ----&gt;</td>
+                <td bgcolor="lightgreen">Process<br>Function<br>Procedure</td>
+              </tr>
+            </table><br>
+
+            <!-- SYNTAX -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Syntax</h3>
+              </div>
+              <div class="panel-body">
+                <pre><code class="vhdl">null;</code></pre>
+              </div>
+            </div>
+
+            <!-- RULES AND EXAMPLES -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Rules and Examples</h3>
+              </div>
+              <div class="panel-body">
+The null statement performs no action. It is usualls used with the case statement, to indicate that under certain conditions, no action is required.
+<pre><code class="vhdl">case ENCRYPTION is
+  when "00" =&gt;
+    CPU_DATA_TMP := (B &amp; A) - OPERAND;
+  when "01" =&gt;
+    CPU_DATA_TMP := (B &amp; A) + OPERAND;
+  when "10" =&gt;
+    CPU_DATA_TMP := (A &amp; B) - OPERAND;
+  when "11" =&gt;
+    CPU_DATA_TMP := (A &amp; B) + OPERAND;
+  when others =&gt;
+    null;
+end case;</code></pre>
+              </div>
+            </div>
+
+            <!-- SYNTHESIS ISSUES -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Synthesis Issues</h3>
+              </div>
+              <div class="panel-body">
+                The null statement is supported by synthesis tools.<br/><br/>
+
+                Note: using a null statement in a "combinational process" can result in latches being inferred, unless all signals driven by the process are given unconditional default assignments.
+              </div>
+            </div><br><br>
+
+            <!-- Operators -->
+            <a class="anchor" id="Operators"></a>
+            <h2>Operators</h2>
+
+            <!-- USE -->
+            <table border="0" cellpadding="15">
+              <tr>
+                <td bgcolor="lightcyan">Operator</td>
+                <td>---- used in ----&gt;</td>
+                <td bgcolor="lightgreen">Expression</td>
+              </tr>
+            </table><br>
+
+            <!-- SYNTAX -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Syntax</h3>
+              </div>
+              <div class="panel-body">
+                <pre><code class="vhdl">and, or, nand, nor, xor, not, =, /=, &gt;, &lt;, &gt;=, &lt;=, &amp;, +, -, *, /</code></pre>
+              </div>
+            </div>
+
+            <!-- RULES AND EXAMPLES -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Rules and Examples</h3>
+              </div>
+              <div class="panel-body">
+The logical operators are predefined for bit, boolean, bit_vector, linear arrays of boolean, std_logic and std_logic_vector types. They return a value of the same type:
+<pre><code class="vhdl">and, or, nand, nor, xor, not</code></pre>
+
+The <b>equality</b> and <b>inequality</b> operators are predefined for all types, and they return a boolean value:
+<pre><code class="vhdl">=   -- equal to
+/=  -- not equal to</code></pre>
+
+The other relational operators are predefined for all scalar types, and all one-dimensional array types. They also return a boolean value:
+<pre><code class="vhdl">&lt;   -- less than
+&gt;   -- greater than
+&lt;=  -- less than or equal to
+&gt;=  -- greater than or equal to</code></pre>
+
+For arrays of different lengthsm the predefined relational operators align the left-hand elements and compare corresponding positions. This can lead to unexpected results:
+<pre><code class="vhdl">constant ARR1 :bit_vector := "0011";
+constant ARR2 :bit_vector := "01";
+-- (ARR1 &lt; ARR2) will return true</code></pre>
+
+The <b>&amp;</b> operator is used to concatenate (join) arrays, or join new elements to an array:
+<pre><code class="vhdl">Z_BUS(1 downto 0) &lt;= '0' &amp; B_BIT;
+BYTE &lt;= A_BUS &amp; B_BUS;</code></pre>
+
+Add, subtract, multiply and divide are defined for integer and real. Both operands must be the same type, and the result is also of the same type:
+<pre><code class="vhdl">signal INT1, INT2: integer := 0;
+signal REAL1, REAL2: real := 6.7;
+...
+INT1  &lt;= INT1 + 3;
+REAL1 &lt;= REAL2 - 2.2;
+INT2  &lt;= INT1 * REAL1;   --illegal
+INT2  &lt;= INT1 * INTEGER(REAL1);
+REAL2 &lt;= REAL1 / 42.3;</code></pre>
+
+For physical types (e.g.time), assignments must be dimensionally consistant:
+<pre><code class="vhdl">variable TIME1,TIME2: time;
+...
+TIME1 := TIME2 * 2.5;
+TIME1 := TIME2 / 4;
+TIME1 := 3.6 ns + TIME2;
+TIME1 := TIME2 * 6.67 ns;   --illegal</code></pre>
+
+Other numeric operators are exponentiation (<b>**</b>), absolute value (<b>abs</b>), modulus (<b>mod</b>), and remainder (<b>rem</b>).
+              </div>
+            </div>
+
+            <!-- SYNTHESIS ISSUES -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Synthesis Issues</h3>
+              </div>
+              <div class="panel-body">
+                Most predefined operators are synthesisable, providing they are used with types accepted by the synthesis tool. See also type declarations and overloading.<br/><br/>
+
+                The following are <b>not</b> usually synthesisable, except as part of a constant expression: exponentiation (**), division by other than 2, mod, rem.
+              </div>
+            </div><br><br>
+
+            <!-- Package -->
+            <a class="anchor" id="Package"></a>
+            <h2>Package</h2>
+
+            <!-- USE -->
+            <table border="0" cellpadding="15">
+              <tr>
+                <td bgcolor="lightcyan">Primary Library Unit</td>
+              </tr>
+            </table><br>
+
+            <!-- SYNTAX -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Syntax</h3>
+              </div>
+              <div class="panel-body">
+<pre><code class="vhdl">package package_name is
+	declarations
+end package_name;</code></pre>
+              </div>
+            </div>
+
+            <!-- RULES AND EXAMPLES -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Rules and Examples</h3>
+              </div>
+              <div class="panel-body">
+Declarations may typically be any of the following: type, subtype, constant, file, alias, component, attribute, function, procedure.
+<pre><code class="vhdl">package DEMO_PACK is
+  constant SOME_FLAG : bit_vector := "11111111";
+  type STATE is (RESET,IDLE,ACKA);
+  component HALFADD
+    port (
+      A, B       : in bit;
+      SUM, CARRY : out bit);
+  end component;
+end DEMO_PACK;</code></pre>
+
+Items declared in a package are visible wherever selected via a use clause. For instance, assume DEMO_PACK is analysed into library work:
+<pre><code class="vhdl">use work.DEMO_PACK.all;
+
+entity DEMO is
+  port (
+    Z: out bit_vector(7 downto 0)
+  );
+end DEMO;
+
+architecture BEHAVE of DEMO is
+begin
+  Z &lt;= SOME_FLAG;
+end BEHAVE;</code></pre>
+
+When a procedure or function is declared in a package, its body (the algorithm part) must be placed in the package body.
+
+A constant declared in a package may be <b>deferred</b>. This means that its value may be changed by re-analysing omly the package body:
+<pre><code class="vhdl">package P is
+  constant C : integer;
+end P;
+
+package body P is
+  constant C : integer := 200;
+end P;</code></pre>
+              </div>
+            </div>
+
+            <!-- SYNTHESIS ISSUES -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Synthesis Issues</h3>
+              </div>
+              <div class="panel-body">
+                Packages are usually supported by synthesis tools, provided all the items they declare are compatible with synthesis.<br/><br/>
+
+                Synthesisable declarations and non-synthesisable declarations (e.g.for a test bench) should therefore be placed in separated packages.<br/><br/>
+
+                Design Libraries are often not supported, so design files containing packages must either by analysed first for synthesis, or be present in the local directory.<br/><br/>
+
+                If a package has a body, it must usually be in the same design file as the package itself.
+              </div>
+            </div><br><br>
+
+            <!-- Package Body -->
+            <a class="anchor" id="Package_Body"></a>
+            <h2>Package Body</h2>
+
+            <!-- USE -->
+            <table border="0" cellpadding="15">
+              <tr>
+                <td bgcolor="lightcyan">Secondary Library Unit</td>
+              </tr>
+            </table><br>
+
+            <!-- SYNTAX -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Syntax</h3>
+              </div>
+              <div class="panel-body">
+<pre><code class="vhdl">package body package_name is
+  declarations
+  deferred constant declarations
+  subprogram bodies
+end package_name;</code></pre>
+              </div>
+            </div>
+
+            <!-- RULES AND EXAMPLES -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Rules and Examples</h3>
+              </div>
+              <div class="panel-body">
+When a procedure or function is declared in a package, its body (the algorithm part) must be placed in the package body:
+<pre><code class="vhdl">package REF_PACK is
+  procedure PARITY (
+    signal X : in bit_vector;
+    signal Y : out bit
+  );
+end REF_PACK;
+
+package body REF_PACK is
+  procedure PARITY (
+    signal X : in bit_vector;
+    signal Y : out bit) is
+  begin
+    -- procedure code
+  end PARITY;
+end REF_PACK;</code></pre>
+
+Other declarations made in a package body may be used within that body, but are <b>not</b> visible outside. declarations may typically be any of the following: type, subtype, constant, file, alias, attribute, function, procedure.<br/><br/>
+
+A constant declared in a package may be deferred. This means its value is defined in the package body. The value may be changed by re-analysing only the package body:
+<pre><code class="vhdl">package P is
+  constant C : integer;
+end P;
+
+package body P is
+  constant C : integer := 200;
+end P;</code></pre>
+
+A package body cannot be analysed unless a matching package exists
+in the same design library.<br/><br/>
+
+Each package can only have one <b>body</b>.
+              </div>
+            </div>
+
+            <!-- SYNTHESIS ISSUES -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Synthesis Issues</h3>
+              </div>
+              <div class="panel-body">
+                Package bodies are usually supported by synthesis tools, provided all the items they declare are compatible with synthesis.
+                <br/><br/>
+                A package body must usually be in the same design file as the package itself.
+              </div>
+            </div><br><br>
+
+            <!-- Procedures -->
+            <a class="anchor" id="Procedures"></a>
+            <h2>Procedures</h2>
+
+            <!-- USE -->
+            <table border="0" cellpadding="15">
+              <tr>
+                <td bgcolor="lightcyan">Declaration</td>
+                <td>---- used in ----&gt;</td>
+                <td bgcolor="lightgreen">Package<br>Entity<br>Architecture<br>Process<br>Procedure<br>Function</td>
+              </tr>
+            </table><br>
+
+            <!-- SYNTAX -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Syntax</h3>
+              </div>
+              <div class="panel-body">
+<pre><code class="vhdl">procedure procedure_name (parameter_list) is
+  declarations
+begin
+  sequential statements
+end procedure_name;</code></pre>
+              </div>
+            </div>
+
+            <!-- RULES AND EXAMPLES -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Rules and Examples</h3>
+              </div>
+              <div class="panel-body">
+Procedures may have in, out or inout parameters. These may be signal, variable or constant. the default for in parameters is constant. For out and inout it is variable. In fact, a constant in parameter can be associated with a signal, variable constant or expression when the procedure is called:
+<pre><code class="vhdl">procedure DISPLAY_MUX
+  (
+    ALARM_TIME, CURRENT_TIME : in digit;
+    SHOW_A                   : in std_ulogic;
+    signal DISPLAY_TIME      : out digit
+  ) is
+begin
+  if (SHOW_A = '1') then
+    DISPLAY_TIME &lt;= ALARM_TIME;
+  else
+    DISPLAY_TIME &lt;= CURRENT_TIME;
+  end if;
+end DISPLAY_MUX;</code></pre>
+
+Procedures may be called concurrently or sequentially. A concurrent procedure call executes whenever any of its in or inout parameters change:
+<pre><code class="vhdl">architecture SUBPROG of DISP_MUX is
+  ...
+begin
+  DISPLAY_MUX (ALARM_TIME, CURRENT_TIME, SHOW_A, DISPLAY_TIME);
+end SUBPROG;</code></pre>
+
+A procedure may declare local variables. These do not retain their values between successive calls, but are re-initialised each time. Array-type parameters may be unconstrained.
+<pre><code class="vhdl">procedure PARITY
+  (
+    signal X : in std_ulogic_vector;
+    signal Y : out std_ulogic
+  ) is
+  variable TMP : std_ulogic := '0';
+begin
+  for J in X'range loop
+    TMP := TMP xor X(J);
+  end loop; -- works for any size X
+  Y &lt;= TMP;
+end PARITY;</code></pre>
+
+A procedure can contain wait statements, unless it is called from a process with a sensitivity list, or from within a function.<br/><br/>
+
+If a procedure is defined in a package, its body (the algorithm part) must be placed in the package body.
+<pre><code class="vhdl">package REF_PACK is
+  procedure PARITY
+    (
+      signal X : in std_logic_vector;
+      signal Y : out std_logic
+    );
+end REF_PACK;
+
+package body REF_PACK is
+  procedure PARITY
+    (
+      signal X : in std_logic_vector;
+      signal Y : out std_logic
+    ) is
+  begin
+    -- procedure code
+  end PARITY;
+end REF_PACK;</code></pre>
+              </div>
+            </div>
+
+            <!-- SYNTHESIS ISSUES -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Synthesis Issues</h3>
+              </div>
+              <div class="panel-body">
+                Procedures are usually supported for synthesis, providing they do not contain any wait statements.
+              </div>
+            </div><br><br>
+
+            <!-- Process -->
+            <a class="anchor" id="Process"></a>
+            <h2>Process</h2>
+
+            <!-- USE -->
+            <table border="0" cellpadding="15">
+              <tr>
+                <td bgcolor="lightcyan">Concurrent Statement</td>
+                <td>---- used in ----&gt;</td>
+                <td bgcolor="lightgreen">Architecture</td>
+              </tr>
+            </table><br>
+
+            <!-- SYNTAX -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Syntax</h3>
+              </div>
+              <div class="panel-body">
+<pre><code class="vhdl">optional_label : process(optional sensitivity list)
+  declarations
+begin
+  sequential statements
+end process optional_label;</code></pre>
+              </div>
+            </div>
+
+            <!-- RULES AND EXAMPLES -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Rules and Examples</h3>
+              </div>
+              <div class="panel-body">
+The <b>sensitivity list</b> is a list of signals. A change in value on one or more of these signals, causes the process to be activated:
+<pre><code class="vhdl">process(ALARM_TIME, CURRENT_TIME)
+begin
+  if (ALARM_TIME = CURRENT_TIME) then
+    SOUND_ALARM &lt;= '1';
+  else
+    SOUND_ALARM &lt;= '0';
+  end if;
+end process;</code></pre>
+
+Alternatively, process activation and suspension may be controlled via the wait statement:
+<pre><code class="vhdl">process
+begin
+  if (ALARM_TIME = CURRENT_TIME) then
+    SOUND_ALARM &lt;= '1';
+  else
+    SOUND_ALARM &lt;= '0';
+  end if;
+  wait on ALARM_TIME, CURRENT_TIME;
+end process;</code></pre>
+
+<b>NOTE:</b> A process cannot have both a sensitivity list and wait statements.<br/><br/>
+
+A process may contain any sequential statement.
+              </div>
+            </div>
+
+            <!-- SYNTHESIS ISSUES -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Synthesis Issues</h3>
+              </div>
+              <div class="panel-body">
+Processes are synthesisable, provided they match certain typical forms, some of which are shown below:<br/><br/>
+
+A "clocked process" with either a wait statement or sensitivity list. For such a process, registers are inferred on <b>all</b> signals which have assignments to them:
+<pre><code class="vhdl">WAIT_PROC: process
+begin
+  wait until CLK'event and CLK='1';
+  Q1 &lt;= D1;
+end process;
+
+SENSE_PROC: process(CLK)
+begin
+  if CLK'event and CLK='1' then
+    Q2 &lt;= D2;
+  end if;
+end process;</code></pre>
+
+A "combinational process" must have a sensitivity list containing all the signals which it reads (inputs), and must <b>always</b> update the signals which it assigns (outputs):
+<pre><code class="vhdl">process(A, B, SEL)
+begin
+  Z &lt;= B;
+  if SEL='1' then
+    Z &lt;= A;
+  end if;
+end process;</code></pre>
+              </div>
+            </div><br><br>
+
+            <!-- Qualified Expressions -->
+            <a class="anchor" id="Qualified_Expressions"></a>
+            <h2>Qualified Expressions</h2>
+
+            <!-- USE -->
+            <table border="0" cellpadding="15">
+              <tr>
+                <td bgcolor="lightcyan">Expression</td>
+                <td>---- used in ----&gt;</td>
+                <td bgcolor="lightgreen">Entity<br>Architecture<br>Package<br>Package Body</td>
+              </tr>
+            </table><br>
+
+            <!-- SYNTAX -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Syntax</h3>
+              </div>
+              <div class="panel-body">
+                <pre><code class="vhdl">type'(expression)</code></pre>
+              </div>
+            </div>
+
+            <!-- RULES AND EXAMPLES -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Rules and Examples</h3>
+              </div>
+              <div class="panel-body">
+A qualified expression is an expression with its type explicitly stated. This is necessary where it might otherwise be ambiguous:
+<pre><code class="vhdl">string'("0010")
+bit_vector'("0010")
+std_logic_vector'("0010")</code></pre>
+
+Qualified expressions may be required when calling <b>overloaded</b> functions or procedures. The qualification makes it clear which version is being called:
+<pre><code class="vhdl">architecture OVER of A is
+  signal P_STD : std_logic;
+  signal P_BIT : bit;
+  function PARITY (X : bit_vector) return bit is
+  begin
+    -- function code
+  end PARITY;
+  function PARITY (X : std_logic_vector) return std_logic is
+  begin
+    -- function code
+  end PARITY;
+begin
+  P_BIT &lt;= PARITY(bit_vector'("00100"));
+  P_STD &lt;= PARITY(std_logic_vector'("10101"));
+end OVER;</code></pre>
+
+Qualification may be necessary for certain aggregate and array expressions:
+<pre><code class="vhdl">entity CONCAT is
+  port(A,B : in  std_ulogic;
+      VALUE: out integer range 0 to 9);
+end CONCAT;
+
+architecture BEHAVIOURAL of CONCAT is
+  subtype T_2 is std_ulogic_vector(1 downto 0);
+begin
+  process(A,B)
+  begin
+    case T_2'(A &amp; B) is
+      when "00"   =&gt; VALUE &lt;= 0;
+      when "01"   =&gt; VALUE &lt;= 1;
+      when "10"   =&gt; VALUE &lt;= 2;
+      when "11"   =&gt; VALUE &lt;= 3;
+      when others =&gt; VALUE &lt;= 9;
+    end case;
+  end process;
+end BEHAVIOURAL;</code></pre>
+              </div>
+            </div>
+
+            <!-- SYNTHESIS ISSUES -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Synthesis Issues</h3>
+              </div>
+              <div class="panel-body">
+                Qualified expressions are usually supported bt logic synthesis tools, providing the expression is of a synthesisable type.
+              </div>
+            </div><br><br>
+
+            <!-- Signal Assignment - Concurrent -->
+            <a class="anchor" id="Signal_Assignment-Concurrent"></a>
+            <h2>Signal Assignment - Concurrent</h2>
+
+            <!-- USE -->
+            <table border="0" cellpadding="15">
+              <tr>
+                <td bgcolor="lightcyan">Concurrent Statement</td>
+                <td>---- used in ----&gt;</td>
+                <td bgcolor="lightgreen">Architecture</td>
+              </tr>
+            </table><br>
+
+            <!-- SYNTAX -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Syntax</h3>
+              </div>
+              <div class="panel-body">
+                <pre><code class="vhdl">signal_name &lt;= expression</code></pre>
+                <pre><code class="vhdl">signal_name &lt;= expression after delay;</code></pre>
+              </div>
+            </div>
+
+            <!-- RULES AND EXAMPLES -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Rules and Examples</h3>
+              </div>
+              <div class="panel-body">
+A concurrent signal assignment assigns a new value to the target signal whenever any of the signals on the right hand side change:
+<pre><code class="vhdl">architecture CONC of HA is
+begin
+  SUM   &lt;= A xor B;
+  CARRY &lt;= A and B;
+end CONC;</code></pre>
+
+Concurrent assignments have an "equivalent process". This is the equivalent process for the concurrent statements above.
+<pre><code class="vhdl">architecture SEQ of HA is
+begin
+  process(A, B)
+  begin
+    SUM   &lt;= A xor B;
+    CARRY &lt;= A and B;
+  end process;
+end SEQ;</code></pre>
+
+A signal assignment may have a delay specified:
+<pre><code class="vhdl">architecture DELAYS of X is
+  constant PERIOD : time := 10 ns;
+begin
+  SUM   &lt;= A xor B after 5 ns;
+  CARRY &lt;= A and B after 3 ns;
+  CLK   &lt;= not CLK after PERIOD/2;
+end DELAYS;</code></pre>
+
+The default delay model is <b>inertial</b>. This means that "pulses" shorter than the delay time are not propagated. The alternative is <b>transport</b> delay, which propagates all transitions:
+<pre><code class="vhdl">architecture TRANS of BUFF is
+  constant DELAY : time := 10 ns;
+begin
+  O_PIN &lt;= transport I_PIN after DELAY;
+end TRANS;</code></pre>
+
+Multiple concurrent assignments to the same signal imply multiple drivers. A signal which is the target of multiple concurrent signal assignments must be of a resolved type, e.g. std_logic, std_logic_vector.<br/><br/>
+
+For <b>guarded assignments</b>, see <b>blocks</b>.
+              </div>
+            </div>
+
+            <!-- SYNTHESIS ISSUES -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Synthesis Issues</h3>
+              </div>
+              <div class="panel-body">
+                Concurrent signal assignments are generally synthesisable, providing they use types and operators acceptable to the synthesis tool.<br/><br/>
+
+                A signal assigned with a concurrent statemant will be inferred as combinational logic.<br/><br/>
+
+                Guarded assignments are not usually supported, and delays are ignored.
+              </div>
+            </div><br><br>
+
+            <!-- Signal Assignment - Conditional -->
+            <a class="anchor" id="Signal_Assignment-Conditional"></a>
+            <h2>Signal Assignment - Conditional</h2>
+
+            <!-- USE -->
+            <table border="0" cellpadding="15">
+              <tr>
+                <td bgcolor="lightcyan">Concurrent Statement</td>
+                <td>---- used in ----&gt;</td>
+                <td bgcolor="lightgreen">Architecture</td>
+              </tr>
+            </table><br>
+
+            <!-- SYNTAX -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Syntax</h3>
+              </div>
+              <div class="panel-body">
+<pre><code class="vhdl">signal_name &lt;= expression_1 when condition_1 else
+               expression_2 when condition_2 else
+               expression_3;</code></pre>
+              </div>
+            </div>
+
+            <!-- RULES AND EXAMPLES -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Rules and Examples</h3>
+              </div>
+              <div class="panel-body">
+Each condition is aboolean expression:
+<pre><code class="vhdl">architecture COND of BRANCH is
+begin
+  Z &lt;= A when X &gt; 5 else
+       B when X &gt; 5 else
+       C;
+end COND;</code></pre>
+
+Conditions may overlap, as for the if statement. The expression corresponding to the first "true" condition is assigned.
+<pre><code class="vhdl">architecture COND of BRANCH is
+begin
+  Z &lt;= A when X = 5 else
+       B when X &lt; 10 else
+       C;
+end COND;</code></pre>
+
+There must be a final unconditional <b>else</b> expression:
+<pre><code class="vhdl">architecture COND of WRONG is
+begin
+  Z &lt;= A when X &gt; 5;  --illegal
+end COND;</code></pre>
+
+The expressions assigned may be delayed. Transport delay mode may also be specified.<br/><br/>
+
+Conditional signal assigments may be used to define <b>tri-state buffers</b>, using the <b>std_logic</b> and <b>std_logic_vector</b> type. Note the use of the aggregate form for a vector bus.
+<pre><code class="vhdl">architecture COND of TRI_STATE is
+  signal TRI_BIT : std_logic;
+  signal TRI_BUS : std_logic_vector(0 to 7);
+begin
+  TRI_BIT &lt;= BIT_1 when EN_1 = '1' else 'Z';
+  TRI_BUS &lt;= BUS_1 when EN_2 = '1' else (others =&gt; 'Z');
+end COND;</code></pre>
+              </div>
+            </div>
+
+            <!-- SYNTHESIS ISSUES -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Synthesis Issues</h3>
+              </div>
+              <div class="panel-body">
+                Conditional signal assignments are generally synthesisable.<br/><br/>
+
+                A conditional signal assignment will usually result in combinational logic being generated. Assignment to 'Z' will normally generate tri-state drivers. Assinment to 'X' may not be supported.<br/><br/>
+
+                If a signal is conditionally assigned to itself, latches may be inferred.
+              </div>
+            </div><br><br>
+
+            <!-- Signal Assignment - Sequential -->
+            <a class="anchor" id="Signal_Assignment-Sequential"></a>
+            <h2>Signal Assignment - Sequential</h2>
+
+            <!-- USE -->
+            <table border="0" cellpadding="15">
+              <tr>
+                <td bgcolor="lightcyan">Sequential Statement</td>
+                <td>---- used in ----&gt;</td>
+                <td bgcolor="lightgreen">Process<br>Procedure</td>
+              </tr>
+            </table><br>
+
+            <!-- SYNTAX -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Syntax</h3>
+              </div>
+              <div class="panel-body">
+                <pre><code class="vhdl">signal_name &lt;= expression;</code></pre>
+                <pre><code class="vhdl">signal_name &lt;= expression after delay;</code></pre>
+              </div>
+            </div>
+
+            <!-- RULES AND EXAMPLES -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Rules and Examples</h3>
+              </div>
+              <div class="panel-body">
+A sequential signal assignment takes effect only when the process suspends. If there is more than one assignment to the same signal before suspension, the last one executed takes effect:
+<pre><code class="vhdl">process(A, B, SEL)
+begin
+  Z &lt;= B;
+  if SEL='1' then
+    Z &lt;= A;
+  end if;
+end process;</code></pre>
+
+An equivalent process:
+<pre><code class="vhdl">process (A, B, SEL)
+begin
+  if SEL='1' then
+    Z &lt;= A;
+  else
+    Z &lt;= B;
+  end if;
+end process;</code></pre>
+
+If a signal which has assignments to it within a process is also in the sensitivity list, it may cause the process to be reactivated:
+<pre><code class="vhdl">architecture EX1 of V is
+  signal A,B,M,N,Y,Z : integer;
+begin
+  process(A, B, M, N)
+  begin
+    M &lt;= A;
+    N &lt;= B;
+    Z &lt;= M + N;
+    M &lt;= 2*A;
+    Y &lt;= M + N;
+  end process;
+end EX1;</code></pre>
+
+In this architecture, the signals Y and Z will both get the same value (2*A + B) because even though two assignments to the signal M are executed, the first will always be superceded by the second.<br/><br/>
+
+A sequential signal assignment may have a delay:
+<pre><code class="vhdl">process(A, B)
+begin
+  SUM   &lt;= A xor B after 1.7 ns;
+  CARRY &lt;= A and B after 1.2 ns;
+end process;</code></pre>
+
+The rules about what happpens when a delayed signal assignment is subsequently overridden are complex. A delayed sequential signal assignment does <b>not</b> suspend the process or procedure for the time specified. The assignment is <b>scheduled</b> to occur after the specified time, and any further sequential statements are executed immediately
+              </div>
+            </div>
+
+            <!-- SYNTHESIS ISSUES -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Synthesis Issues</h3>
+              </div>
+              <div class="panel-body">
+                Sequential signal assignments are generally synthesisable, providing they use types and operators acceptable to the synthesis tool. Delays are usually ignored.<br/><br/>
+
+                All signals with assignments to them within a "clocked process" will become the outputs of registers in the synthesised design.<br/><br/>
+
+                Signals driven by a "combinational process" will be inferred as the outputs of combinational logic <b>but</b> a signal which is assigned only under certain conditions may infer a latch. Assignment to 'Z' will normally generate tri-state drivers. assignment to 'X' may not be supported.
+              </div>
+            </div><br><br>
+
+            <!-- Signal Declaration -->
+            <a class="anchor" id="Signal_Declaration"></a>
+            <h2>Signal Declaration</h2>
+
+            <!-- USE -->
+            <table border="0" cellpadding="15">
+              <tr>
+                <td bgcolor="lightcyan">Declaration</td>
+                <td>---- used in ----&gt;</td>
+                <td bgcolor="lightgreen">Architecture</td>
+              </tr>
+            </table><br>
+
+            <!-- SYNTAX -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Syntax</h3>
+              </div>
+              <div class="panel-body">
+                <pre><code class="vhdl">signal signal_name : type;</code></pre>
+                <pre><code class="vhdl">signal signal_name : type := initial_value;</code></pre>
+              </div>
+            </div>
+
+            <!-- RULES AND EXAMPLES -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Rules and Examples</h3>
+              </div>
+              <div class="panel-body">
+<pre><code class="vhdl">signal SUM, CARRY1, CARRY2 : bit;
+signal COUNT : integer range 0 to 15;
+signal CLK, RESET : std_ulogic := '0';
+signal ALARM_TIME : T_CLOCK_TIME := (1,2,0,0);
+signal CONDITION : boolean := false;</code></pre>
+
+During elaboration, eacg signal is set to an initial value. If a signal is not given an explicit initial value, it will default to the leftmost value (<b>'left</b>) of its declared type:
+<pre><code class="vhdl">signal I : integer range 0 to 3; -- I will initialise to 0
+signal X : std_logic; -- X will initialise to 'U'</code></pre>
+
+A signal which is driven by more than one process, concurrentstatement or component instance, must be declared with a <b>resolved type</b>, e.g.std_logic or std_logic_vector:
+<pre><code class="vhdl">architecture COND of TRI_STATE is
+  signal TRI_BIT: std_logic;
+begin
+  TRI_BIT &lt;= BIT_1 when EN_1 = '1' else 'Z';
+  TRI_BIT &lt;= BIT_2 when EN_2 = '1' else 'Z';
+end COND;</code></pre>
+
+Signals may not be declared in a processor subprogram (except as formal parameters).<br/><br/>
+
+Ports declared in an entity are accessible as signals within the associated architecture(s) and do not need to be redeclared.<br/><br/>
+
+A signal of a <b>resolved type</b> may be declared as a <b>guarded resolved</b> signal. This is required if all drivers to a signal may be turned off, through guarded assignments.
+<pre><code class="vhdl">signal signal_name : resolved_type signal_kind;</code></pre>
+
+The "signal kind" keyword may be <b>register</b> or <b>bus</b>. Guarded resolved signals of kind <b>register</b> retain their current value when drive is turned off, whereas signals of kind <b>bus</b> rely on the resolution function to provide a "no-drive" value.
+              </div>
+            </div>
+
+            <!-- SYNTHESIS ISSUES -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Synthesis Issues</h3>
+              </div>
+              <div class="panel-body">
+                Signals are supported for synthesis, providing they are of a type acceptable to the logic synthesis tool.<br/><br/>
+
+                The signal kinds <b>register</b> of <b>bus</b> are usually ignored.<br/><br/>
+
+                Only certain resolved signal types are supported. Most tools recognise the <b>std_logic_1164</b> types.
+              </div>
+            </div><br><br>
+
+            <!-- Subtype Declaration -->
+            <a class="anchor" id="Subtype_Declaration"></a>
+            <h2>Subtype Declaration</h2>
+
+            <!-- USE -->
+            <table border="0" cellpadding="15">
+              <tr>
+                <td bgcolor="lightcyan">Declaration</td>
+                <td>---- used in ----&gt;</td>
+                <td bgcolor="lightgreen">Package<br>Entity<br>Architecture<br>Process<br>Procedure<br>Function</td>
+              </tr>
+            </table><br>
+
+            <!-- SYNTAX -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Syntax</h3>
+              </div>
+              <div class="panel-body">
+                <pre><code class="vhdl">subtype subtype_name is base_type range range_constraint;</code></pre>
+              </div>
+            </div>
+
+            <!-- RULES AND EXAMPLES -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Rules and Examples</h3>
+              </div>
+              <div class="panel-body">
+Assignments may not be made between objects of different types even though they may be similar.
+<pre><code class="vhdl">type BUS_VAL is range 0 to 255;
+type MY_LOGIC is ('0','1');
+
+variable X_INT : integer := 22;
+variable X_BUS : BUS_VAL := 22;
+variable X_BIT : bit := '0';
+variable X_MY  : MY_LOGIC := '0';
+...
+X_BUS := X_INT; --illegal
+X_MY  := X_BIT; --illegal</code></pre>
+
+Since a subtype is the <b>same type</b> as its base type, assignments between subtype and base type onjects can be made without conversion:
+<pre><code class="vhdl">subtype BUS_VAL is integer range 0 to 255;
+subtype MY_LOGIC is std_ulogic range 'X' to 'Z';
+variable X_INT : integer    := 22;
+variable X_BUS : BUS_VAL;
+variable X_STD : std_ulogic := '0';
+variable X_MY  : MY_LOGIC;
+...
+X_BUS := X_INT; --legal
+X_MY  := X_STD; --legal</code></pre>
+
+Subtypes <b>natural</b> and <b>positive</b> are predefined subtypes of <b>integer</b>
+<pre><code class="vhdl">subtype NATURAL is integer range 0 to integer'high;
+subtype POSITIVE is integer range 1 to integer'high;</code></pre>
+
+The std_logic_1164 package defines the following subtypes of <b>std_logic</b>:
+<pre><code class="vhdl">subtype XO1  is std_ulogic range 'X' to '1';
+subtype XO1Z is std_ulogic range 'X' to 'Z';
+subtype UXO1 is std_ulogic range 'U' to '1';</code></pre>
+              </div>
+            </div>
+
+            <!-- SYNTHESIS ISSUES -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Synthesis Issues</h3>
+              </div>
+              <div class="panel-body">
+                Most logic synthesis tools support subtypes of types that they recognise.<br/><br/>
+
+                Synthesis tools will infer an appropriate number of bits for enumerated and integer subtypes, depending on the range.
+              </div>
+            </div><br><br>
+
+            <!-- Type Conversion -->
+            <a class="anchor" id="Type_Conversion"></a>
+            <h2>Type Conversion</h2>
+
+            <!-- USE -->
+            <table border="0" cellpadding="15">
+              <tr>
+                <td bgcolor="lightcyan">Expression</td>
+                <td>---- used in ----&gt;</td>
+                <td bgcolor="lightgreen">Package<br>Entity<br>Architecture<br>Process<br>Procedure<br>Function</td>
+              </tr>
+            </table><br>
+
+            <!-- SYNTAX -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Syntax</h3>
+              </div>
+              <div class="panel-body">
+                <pre><code class="vhdl">target_type (closely_related_expression)</code></pre>
+                <pre><code class="vhdl">conversion_function (expression)</code></pre>
+              </div>
+            </div>
+
+            <!-- RULES AND EXAMPLES -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Rules and Examples</h3>
+              </div>
+              <div class="panel-body">
+Objects of user-defined types cannot directly be assigned to or from objects of even a closely related type. A <b>type conversion</b> allows the assignment to be made:
+<pre><code class="vhdl">type BUS_VAL is range 0 to 255;
+
+variable X_INT : integer := 22;
+variable X_BUS : BUS_VAL;
+...
+X_BUS := X_INT; -- illegal
+X_BUS := BUS_VAL(X_INT);</code></pre>
+
+<b>Closely related types</b> are:
+<ol>
+<li>integer types and real types
+</li><li>array types whose lengths, index types and element types match.
+</li></ol>
+For instance:
+<pre><code class="vhdl">type T_BYTE is array (7 downto 0) of std_ulogic;
+signal TYPE_BUS : T_BYTE;
+signal VEC_BUS : std_ulogic_vector(7 downto 0);
+...
+TYPE_BUS &lt;= VEC_BUS; -- illegal
+TYPE_BUS &lt;= T_BYTE(VEC_BUS);</code></pre>
+
+If conversion is required between types which are not closely related, a user defined function must be used:
+<pre><code class="vhdl">signal X_BOOL : boolean;
+signal X_STD : std_ulogic;
+function BOOL_TO_SL(X : boolean) return std_ulogic is
+begin
+  if X then
+    return ('1');
+  else
+    return ('0');
+  end if;
+end BOOL_TO_SL;
+...
+X_STD &lt;= X_BOOL; -- illegal
+X_STD &lt;= BOOL_TO_SL(X_BOOL);</code></pre>
+
+A type conversion function may be called in a port map, to match port type to signal type.
+              </div>
+            </div>
+
+            <!-- SYNTHESIS ISSUES -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Synthesis Issues</h3>
+              </div>
+              <div class="panel-body">
+                Most logic synthesis tools support type conversion for appropriate array and integer types.<br/><br/>
+
+                Most also accept the type conversion functions in the std_logic_1164 package.<br/><br/>
+
+                Some synthesis vendors supply a VHDL package containing conversion functions which the synthesiser will spuuort.<br/><br/>
+
+                Conversion functions in port maps are not usually supported.
+              </div>
+            </div><br><br>
+
+            <!-- Use Clause -->
+            <a class="anchor" id="Use_Clause"></a>
+            <h2>Use Clause</h2>
+
+            <!-- USE -->
+            <table border="0" cellpadding="15">
+              <tr>
+                <td bgcolor="lightcyan">Context Clause</td>
+                <td>---- used in ----&gt;</td>
+                <td bgcolor="lightgreen">Entity<br>Architecture<br>Package<br>Configuration</td>
+              </tr>
+            </table><br>
+
+            <!-- SYNTAX -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Syntax</h3>
+              </div>
+              <div class="panel-body">
+                <pre><code class="vhdl">use library_name.primary_unit_name;</code></pre>
+                <pre><code class="vhdl">use library_name.primary_unit_name.item;</code></pre>
+              </div>
+            </div>
+
+            <!-- RULES AND EXAMPLES -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Rules and Examples</h3>
+              </div>
+              <div class="panel-body">
+The use clause must appear before the start of the design unit itself. If the unit to be used is not in the library <b>work</b>, it must be preceded by a library clause:
+<pre><code class="vhdl">library IEEE;
+use IEEE.STD_LOGIC_1164.all;
+entity WIDGET is
+
+-- etc.
+
+end WIDGET;</code></pre>
+
+The use clause is valid only for the design unit immediately following it in the design file. However it also automatically applies to any secondary units associated with primary units for which it is valid.<br/><br/>
+
+Where multiple primary design units in the same design file need to use the same items, the use clause(s) must be repeated before each unit.<br/><br/>
+
+The last field in a use clause may be replaced by <b>all</b> to access all items in a design unit, or all design unitsin a library:
+<pre><code class="vhdl">library MY_LIB;
+use MY_LIB.MY_PACK.all;</code></pre>
+
+The shorter form of the use clause may appear in a configuration, to select which library entities are selected from:
+<pre><code class="vhdl">library ASIC_LIB;
+configuration ASIC_TECH of ENT is
+  for GATE_ARCH
+    use ASIC_LIB.all;
+  end for;
+end ASIC_TECH;</code></pre>
+
+The shorter form of the use clause may also appear in the declarative part of an entity, architecture or block.
+              </div>
+            </div>
+
+            <!-- SYNTHESIS ISSUES -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Synthesis Issues</h3>
+              </div>
+              <div class="panel-body">
+                The use clause is usually supported by synthesis tools, but design libraries are often not.<br/><br/>
+
+                Design files corresponding to any design units referenced by a use clause must be analysed before the design units referencing them can be synthesised.
+              </div>
+            </div><br><br>
+
+            <!-- Variable Declaration -->
+            <a class="anchor" id="Variable_Declaration"></a>
+            <h2>Variable Declaration</h2>
+
+            <!-- USE -->
+            <table border="0" cellpadding="15">
+              <tr>
+                <td bgcolor="lightcyan">Declaration</td>
+                <td>---- used in ----&gt;</td>
+                <td bgcolor="lightgreen">Process<br>Procedure<br>Function</td>
+              </tr>
+            </table><br>
+
+            <!-- SYNTAX -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Syntax</h3>
+              </div>
+              <div class="panel-body">
+                <pre><code class="vhdl">variable variable_name : type;</code></pre>
+                <pre><code class="vhdl">variable variable_name : type := initial_value;</code></pre>
+              </div>
+            </div>
+
+            <!-- RULES AND EXAMPLES -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Rules and Examples</h3>
+              </div>
+              <div class="panel-body">
+<pre><code class="vhdl">variable HEIGHT : integer := 8;
+variable COND : boolean := true;
+variable IN_STRING : string(1 to 80);
+variable M,N : bit := '1';
+variable I : integer range 0 to 3;
+variable MAKE_FRAME_STATE : T_MAKE_FRAME_STATE := RCV_HIGH;</code></pre>
+
+A Variable may be given an explicit initial value when it is declared. If a variable is not given an explicit value, it's default value will be the leftmost value (<b>'left</b>) of its declared type.
+<pre><code class="vhdl">variable I : integer range 0 to 3; -- initial value of I is 0
+variable X : std_ulogic; -- initial value of X is 'U'</code></pre>
+
+Variables within subprograms (functions and procedures) are initialised each time the subprogram is called:
+<pre><code class="vhdl">function PARITY (X : std_ulogic_vector) return std_ulogic is
+  variable TMP : std_ulogic := '0';
+begin
+  for J in X'range loop
+    TMP := TMP xor X(J);
+  end loop; --no need to initialise TMP
+  return TMP;
+end PARITY;</code></pre>
+
+Variables in processes, except for "FOR LOOP" variables, receive their initial values at the start of the simulation time (time = 0 ns)
+<pre><code class="vhdl">process(A)
+  variable TMP : std_ulogic := '0';
+begin
+  TMP := '0';
+  -- in this example we need to reset
+  -- TMP to '0' each time the process
+  -- is activated
+  for I in A'low to A'high loop
+    TMP := TMP xor A(I);
+  end loop;
+  ODD &lt;= TMP;
+end process;</code></pre>
+              </div>
+            </div>
+
+            <!-- SYNTHESIS ISSUES -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Synthesis Issues</h3>
+              </div>
+              <div class="panel-body">
+                Variables are supported for synthesis, providing they are of a type acceptable to the logic synthesis tool.<br/><br/>
+
+                In a "clocked process", each variable which has its value read before it has had an assignment to it will be synthesised as the output of a register.<br/><br/>
+
+                In a "combinational process", reading a variable before it has had an assignment may cause a latch to be synthesised.<br/><br/>
+
+                Variables declared in a subprogram are synthesised as combinational logic.
+              </div>
+            </div><br><br>
+
+            <!-- Variable Assignment -->
+            <a class="anchor" id="Variable_Assignment"></a>
+            <h2>Variable Assignment</h2>
+
+            <!-- USE -->
+            <table border="0" cellpadding="15">
+              <tr>
+                <td bgcolor="lightcyan">Sequential Statement</td>
+                <td>---- used in ----&gt;</td>
+                <td bgcolor="lightgreen">Process<br>Procedure<br>Function</td>
+              </tr>
+            </table><br>
+
+            <!-- SYNTAX -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Syntax</h3>
+              </div>
+              <div class="panel-body">
+                <pre><code class="vhdl">variable_name := expression;</code></pre>
+              </div>
+            </div>
+
+            <!-- RULES AND EXAMPLES -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Rules and Examples</h3>
+              </div>
+              <div class="panel-body">
+Assignments may be made from signals to variables and vice-versa, providing the types match:
+<pre><code class="vhdl">process(A, B, C, SEL)
+  variable X : integer range 0 to 7;
+begin
+  if SEL = '1' then
+    X := B;
+  else
+    X := C;
+  end if;
+  Z &lt;= A + X;
+end process;</code></pre>
+
+A variable assignment takes effect immediately:
+<pre><code class="vhdl">architecture EX1 of V is
+  signal A,B,Y,Z : integer;
+begin
+  process(A, B)
+    variable M, N : integer;
+  begin
+    M := A;
+    N := B;
+    Z &lt;= M + N;
+    M := 2*A;
+    Y &lt;= M + N;
+  end process;
+end EX1;</code></pre>
+
+An equivalent architecture with concurrent signal assignments
+<pre><code class="vhdl">architecture EX2 of V is
+  signal A,B,Y,Z:integer;
+begin
+  Z &lt;= A + B;
+  Y &lt;= 2 * A + B;
+end EX2;</code></pre>
+
+A variable assignment may not be given a delay.<br/><br/>
+
+A variable in a process can act as a register, if it is read before it has been written to, since it retains its value between sucessive process activations.
+<pre><code class="vhdl">process(CLK)
+  variable Q : std_ulogic;
+begin
+  if CLK'event and CLK='1' then
+    PULSE &lt;= D and not(Q);
+    Q := D;
+    -- PULSE and Q act as registers
+  end if;
+end process;</code></pre>
+              </div>
+            </div>
+
+            <!-- SYNTHESIS ISSUES -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Synthesis Issues</h3>
+              </div>
+              <div class="panel-body">
+                Variable assignments are generally synthesisable, providing they use types and operators acceptable to the synthesis tool.<br/><br/>
+
+                In a "clocked process", each variable which has its value read before it has had an assignment to it will be synthesised as the output of a register.<br/><br/>
+
+                In a "combinational process", reading a variable before it has had an assignment may cause a latch to be synthesised.<br/><br/>
+
+                Variables declared in a subprogram are synthesised as combinational logic.
+              </div>
+            </div><br><br>
+
+            <!-- Wait Statement -->
+            <a class="anchor" id="Wait_Statement"></a>
+            <h2>Wait Statement</h2>
+
+            <!-- USE -->
+            <table border="0" cellpadding="15">
+              <tr>
+                <td bgcolor="lightcyan">Sequential Statement</td>
+                <td>---- used in ----&gt;</td>
+                <td bgcolor="lightgreen">Process<br>Procedure</td>
+              </tr>
+            </table><br>
+
+            <!-- SYNTAX -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Syntax</h3>
+              </div>
+              <div class="panel-body">
+                <pre><code class="vhdl">wait until condition;</code></pre>
+                <pre><code class="vhdl">wait on signal_list;</code></pre>
+                <pre><code class="vhdl">wait for time;</code></pre>
+                <pre><code class="vhdl">wait;</code></pre>
+              </div>
+            </div>
+
+            <!-- RULES AND EXAMPLES -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Rules and Examples</h3>
+              </div>
+              <div class="panel-body">
+The <b>wait until</b> form suspends a process until a change occurs on one or more of the signals in the statement and the condition is evaluated to be true. A rising edge on NET_DATA_VALID and three rising edges on CLK must occur for this process to cycle:
+<pre><code class="vhdl">READ_NET: process
+begin
+  wait until NET_DATA_VALID = '1';
+  NET_DATA_READ &lt;= '1';
+  wait until CLK='1';
+  wait until CLK='1';
+  NET_BUFFER &lt;= NET_DATA_IN;
+  wait until CLK='1';
+  NET_DATA_READ &lt;= '0';
+end process READ_NET;</code></pre>
+
+The 'event term in the following form of wait statement is in fact redundant, but is required by many synthesis tools:
+<pre><code class="vhdl">WAIT_PROC: process
+begin
+  wait until CLK'event and CLK='1';
+  Q1 &lt;= D1;
+end process;</code></pre>
+
+The <b>wait on</b> form is equivalent to a sensitivity list. These processes will behave identically:
+<pre><code class="vhdl">process(A, B)
+begin
+  -- sequential statements
+end process;
+
+process
+begin
+  -- identical statements
+  wait on A, B;
+end process;</code></pre>
+
+The <b>wait</b> statement <b>cannot</b> be used:
+<ol>
+  <li>In a process with a sensitivity list</li>
+  <li>In a procedure called from a process with a sensitivity list.</li>
+  <li>In a function</li>
+  <li>In a procedure called from a function</li>
+</ol><br/><br/>
+<b>Wait for</b> and <b>wait</b> are useful in behavioural models and test benches. <b>Wait</b> on it's own suspends a process indefinitely:
+<pre><code class="vhdl">STIMULUS: process
+begin
+  EN_1 &lt;= '0';
+  EN_2 &lt;= '1';
+  wait for 10 ns;
+  EN_1 &lt;= '1';
+  EN_2 &lt;= '0';
+  wait for 10 ns;
+  EN_1 &lt;= '0';
+  wait for 10 ns;
+  wait; -- end of test
+end process STIMULUS;</code></pre>
+              </div>
+            </div>
+
+            <!-- SYNTHESIS ISSUES -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Synthesis Issues</h3>
+              </div>
+              <div class="panel-body">
+                Most logic synthesis tools only support a single <b>wait until</b> (clock edge expression) statement in a "clocked process".<br/><br/>
+
+                Some tools support a single <b>wait on</b> statement as an alternative to a sensitive list in a "combinational process".<br/><br/>
+
+                <b>Wait for</b>, unconditional <b>wait</b> and wait statements in procedures are not supported.
+              </div>
+            </div><br><br>
+
+            <!-- While and Infinite Loop -->
+            <a class="anchor" id="While_and_Infinite_Loop"></a>
+            <h2>While and Infinite Loop</h2>
+
+            <!-- USE -->
+            <table border="0" cellpadding="15">
+              <tr>
+                <td bgcolor="lightcyan">Sequential Statement</td>
+                <td>---- used in ----&gt;</td>
+                <td bgcolor="lightgreen">Process<br>Function<br>Procedure</td>
+              </tr>
+            </table><br>
+
+            <!-- SYNTAX -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Syntax</h3>
+              </div>
+              <div class="panel-body">
+<pre><code class="vhdl">while condition loop
+  sequential statements
+end loop;</code></pre>
+<pre><code class="vhdl">loop
+  sequential statements
+end loop;</code></pre>
+              </div>
+            </div>
+
+            <!-- RULES AND EXAMPLES -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Rules and Examples</h3>
+              </div>
+              <div class="panel-body">
+The <b>while</b> loop repeats the enclosed sequence of statements if the condition tested is true. The condition is tested before wach iteration.
+<pre><code class="vhdl">process(A)
+  variable I : integer range 0 to 4;
+begin
+  Z &lt;= "0000";
+  I := 0;
+  while (I &lt;= 3) loop
+    if (A = I) then
+      Z(I) &lt;= '1';
+    end if;
+    I := I + 1;
+  end loop;
+end process;</code></pre>
+
+While loops may be useful in test benches:
+<pre><code class="vhdl">process
+begin
+  while NOW &lt; MAX_SIM_TIME loop
+    CLK &lt;= not CLK ;
+    wait for PERIOD/2;
+  end loop;
+  wait;
+end process;</code></pre>
+
+To prevent simulation hang-up an infinite loop should usually contain at least one wait or exit statement:
+<pre><code class="vhdl">process (A)
+  variable I : integer range 0 to 4;
+begin
+  Z &lt;= "0000";
+  I := 0;
+  L1 : loop
+    exit L1 when I = 4;
+    if (A = I) then
+      Z(I) &lt;= '1';
+    end if;
+    I := I + 1;
+  end loop;
+end process;</code></pre>
+              </div>
+            </div>
+
+            <!-- SYNTHESIS ISSUES -->
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Synthesis Issues</h3>
+              </div>
+              <div class="panel-body">
+                While and infinite loops are supported by some logic synthesis tools, with certain restrictions.
+              </div>
+            </div><br><br>
             <!-- <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a> -->
           </div>
         </div>
       </div>
-    </div>
-    <!-- /#page-content-wrapper -->
-
-  </div>
-  <!-- /#wrapper -->
+    </div><!-- /#page-content-wrapper -->
+  </div><!-- /#wrapper -->
 
   <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
