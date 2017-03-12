@@ -14,25 +14,22 @@
 
   <!-- Bootstrap -->
   <link href="bootstrap-3.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
-
   <!-- Custom styles for this template -->
   <link href="StyleSheets/sidebar.css" rel="stylesheet">
 
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <!-- Include all compiled plugins (below), or include individual files as needed -->
+  <script src="js/bootstrap.min.js"></script>
   <!-- JS code highlighting -->
   <link href="CodeHighlighting/styles/atom-one-light.css" rel="stylesheet">
   <script src="CodeHighlighting/highlight.pack.js"></script>
   <script>hljs.initHighlightingOnLoad();</script>
-
-  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-  <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
 </head>
 
 <body>
 
+  <!-- Top Navigation for overall site -->
   <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
       <div class="navbar-header">
@@ -57,62 +54,65 @@
     </div>
   </nav>
 
+  <!-- Main page contents -->
   <div id="wrapper">
 
     <!-- Sidebar -->
     <div id="sidebar-wrapper">
-      <ul class="sidebar-nav">
-        <li><a href="#Definitions">Definitions</a></li>
-        <li><a href="#Aggregates">Aggregates</a></li>
-        <li><a href="#Alias_Declaration">Alias Declaration</a></li>
-        <li><a href="#Architecture">Architecture</a></li>
-        <li><a href="#Arrays">Arrays</a></li>
-        <li><a href="#Assert">Assert</a></li>
-        <li><a href="#Attributes">Attributes</a></li>
-        <li><a href="#Block_Statement">Block Statement</a></li>
-        <li><a href="#Case_Statement">Case Statement</a></li>
-        <li><a href="#Component_Declaration">Component Declaration</a></li>
-        <li><a href="#Component_Instantiation">Component Instantiation</a></li>
-        <li><a href="#Configuration_Declaration">Configuration Declaration</a></li>
-        <li><a href="#Configuration_Specification">Configuration Specification</a></li>
-        <li><a href="#Constant_Declaration">Constant Declaration</a></li>
-        <li><a href="#Entity">Entity</a></li>
-        <li><a href="#Exit_Statement">Exit Statement</a></li>
-        <li><a href="#File_Declaration">File Declaration</a></li>
-        <li><a href="#For_Loop">For Loop</a></li>
-        <li><a href="#Functions">Functions</a></li>
-        <li><a href="#Generate_Statement">Generate Statement</a></li>
-        <li><a href="#Generics">Generics</a></li>
-        <li><a href="#If_Statement">If Statement</a></li>
-        <li><a href="#Literals">Literals</a></li>
-        <li><a href="#Names">Names</a></li>
-        <li><a href="#Next_Statement">Next Statement</a></li>
-        <li><a href="#Null_Statement">Null Statement</a></li>
-        <li><a href="#Operators">Operators</a></li>
-        <li><a href="#Package">Package</a></li>
-        <li><a href="#Package_Body">Package Body</a></li>
-        <li><a href="#Procedures">Procedures</a></li>
-        <li><a href="#Process">Process</a></li>
-        <li><a href="#Qualified_Expressions">Qualified Expressions</a></li>
-        <li><a href="#Signal_Assignment-Concurrent">Signal Assignment - Concurrent</a></li>
-        <li><a href="#Signal_Assignment-Conditional">Signal Assignment - Conditional</a></li>
-        <li><a href="#Signal_Assignment-Sequential">Signal Assignment - Sequential</a></li>
-        <li><a href="#Signal_Declaration">Signal Declaration</a></li>
-        <li><a href="#Subtype_Declaration">Subtype Declaration</a></li>
-        <li><a href="#Type_Conversion">Type Conversion</a></li>
-        <li><a href="#Type_Declaratio">Type Declaration</a></li>
-        <li><a href="#Use_Clause">Use Clause</a></li>
-        <li><a href="#Variable_Declaration">Variable Declaration</a></li>
-        <li><a href="#Variable_Assignment">Variable Assignment</a></li>
-        <li><a href="#Wait_Statement">Wait Statement</a></li>
-        <li><a href="#While_and_Infinite_Loop">While and Infinite Loop</a></li>
-      </ul>
+      <nav id="spy">
+        <ul class="sidebar-nav nav">
+          <li><a href="#Definitions">Definitions</a></li>
+          <li><a href="#Aggregates">Aggregates</a></li>
+          <li><a href="#Alias_Declaration">Alias Declaration</a></li>
+          <li><a href="#Architecture">Architecture</a></li>
+          <li><a href="#Arrays">Arrays</a></li>
+          <li><a href="#Assert">Assert</a></li>
+          <li><a href="#Attributes">Attributes</a></li>
+          <li><a href="#Block_Statement">Block Statement</a></li>
+          <li><a href="#Case_Statement">Case Statement</a></li>
+          <li><a href="#Component_Declaration">Component Declaration</a></li>
+          <li><a href="#Component_Instantiation">Component Instantiation</a></li>
+          <li><a href="#Configuration_Declaration">Configuration Declaration</a></li>
+          <li><a href="#Configuration_Specification">Configuration Specification</a></li>
+          <li><a href="#Constant_Declaration">Constant Declaration</a></li>
+          <li><a href="#Entity">Entity</a></li>
+          <li><a href="#Exit_Statement">Exit Statement</a></li>
+          <li><a href="#File_Declaration">File Declaration</a></li>
+          <li><a href="#For_Loop">For Loop</a></li>
+          <li><a href="#Functions">Functions</a></li>
+          <li><a href="#Generate_Statement">Generate Statement</a></li>
+          <li><a href="#Generics">Generics</a></li>
+          <li><a href="#If_Statement">If Statement</a></li>
+          <li><a href="#Literals">Literals</a></li>
+          <li><a href="#Names">Names</a></li>
+          <li><a href="#Next_Statement">Next Statement</a></li>
+          <li><a href="#Null_Statement">Null Statement</a></li>
+          <li><a href="#Operators">Operators</a></li>
+          <li><a href="#Package">Package</a></li>
+          <li><a href="#Package_Body">Package Body</a></li>
+          <li><a href="#Procedures">Procedures</a></li>
+          <li><a href="#Process">Process</a></li>
+          <li><a href="#Qualified_Expressions">Qualified Expressions</a></li>
+          <li><a href="#Signal_Assignment-Concurrent">Signal Assignment - Concurrent</a></li>
+          <li><a href="#Signal_Assignment-Conditional">Signal Assignment - Conditional</a></li>
+          <li><a href="#Signal_Assignment-Sequential">Signal Assignment - Sequential</a></li>
+          <li><a href="#Signal_Declaration">Signal Declaration</a></li>
+          <li><a href="#Subtype_Declaration">Subtype Declaration</a></li>
+          <li><a href="#Type_Conversion">Type Conversion</a></li>
+          <li><a href="#Type_Declaratio">Type Declaration</a></li>
+          <li><a href="#Use_Clause">Use Clause</a></li>
+          <li><a href="#Variable_Declaration">Variable Declaration</a></li>
+          <li><a href="#Variable_Assignment">Variable Assignment</a></li>
+          <li><a href="#Wait_Statement">Wait Statement</a></li>
+          <li><a href="#While_and_Infinite_Loop">While and Infinite Loop</a></li>
+        </ul>
+      </nav>
     </div>
     <!-- /#sidebar-wrapper -->
 
     <!-- Page Content -->
     <div id="page-content-wrapper">
-      <div class="container-fluid">
+      <div class="page-content inset" data-spy="scroll" data-target="#spy">
         <div class="row">
           <div class="col-lg-12">
             <!-- Definitions -->
@@ -3719,18 +3719,6 @@ end process;</code></pre>
       </div>
     </div><!-- /#page-content-wrapper -->
   </div><!-- /#wrapper -->
-
-  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-  <!-- Include all compiled plugins (below), or include individual files as needed -->
-  <script src="js/bootstrap.min.js"></script>
-  <!-- Menu Toggle Script -->
-  <script>
-    $("#menu-toggle").click(function(e) {
-      e.preventDefault();
-      $("#wrapper").toggleClass("toggled");
-    });
-  </script>
 </body>
 
 </html>
