@@ -1,7 +1,8 @@
 /*http://bootsnipp.com/snippets/featured/sidebar-navigation-with-scrollspy*/
 body {
-   overflow-x: hidden;
-   padding-top: 50px;
+  position: relative;
+  overflow-x: hidden;
+  padding-top: 50px;
 }
 
 #wrapper {

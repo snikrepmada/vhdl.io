@@ -18,13 +18,15 @@
   <link href="StyleSheets/sidebar.css" rel="stylesheet">
 
   <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+  <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> -->
   <!-- Include all compiled plugins (below), or include individual files as needed -->
-  <script src="js/bootstrap.min.js"></script>
+  <script src="bootstrap-3.3.7/dist/js/bootstrap.min.js"></script>
   <!-- JS code highlighting -->
   <link href="CodeHighlighting/styles/atom-one-light.css" rel="stylesheet">
   <script src="CodeHighlighting/highlight.pack.js"></script>
   <script>hljs.initHighlightingOnLoad();</script>
+  <script src="js/sidebar_highlight.js"></script>
 </head>
 
 <body>
@@ -35,7 +37,7 @@
       <div class="navbar-header">
         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
             <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
+            <span class="icon-bar">Reference</span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
@@ -116,7 +118,7 @@
         <div class="row">
           <div class="col-lg-12">
             <!-- Definitions -->
-            <a class="anchor" id="Definitions"></a>
+            <div  id="Definitions">
             <h2>Definitions</h2>
               <table class="table table-bordered">
                 <tbody>
@@ -231,10 +233,10 @@
                   </tr>
                 </tbody>
               </table>
-              <br><br>
+            </div>
 
             <!-- Aggregates -->
-            <a class="anchor" id="Aggregates"></a>
+            <div  id="Aggregates">
             <h2>Aggregates</h2>
 
             <!-- USE -->
@@ -316,10 +318,11 @@ variable D_BUS : std_ulogic_vector(63 downto 0) := (others =&gt; 'Z');</code></p
               <div class="panel-body">
                 Logic synthesis tools may not support named association fully. Also, record assignments using aggregates may not be supported.
               </div>
-            </div><br><br>
+            </div>
+          </div>
 
             <!-- ALIAS DECLARATION -->
-            <a class="anchor" id="Alias_Declaration"></a>
+            <div  id="Alias_Declaration">
             <h2>Alias Declaration</h2>
 
             <!-- USE -->
@@ -383,10 +386,11 @@ alias BIT_REV_A : std_ulogic_vector(0 to 7) is BUS_A;</code></pre>
                   Such "alias" signals should be assigned concurrently, and "alias" variables should be reassigned each time their process is activated.
                 </p>
               </div>
-            </div><br><br>
+            </div>
+          </div>
 
             <!-- ARCHITECTURE -->
-            <a class="anchor" id="Architecture"></a>
+            <div  id="Architecture">
             <h2>Architecture</h2>
 
             <!-- USE -->
@@ -491,10 +495,11 @@ An architecture cannot be analysed unless the entity it refers to exists in the 
                   Configuration is not usualy supported by synthesis tools, so only one architecture per entity may be analysed. With some tools, this architecture must be in the same design file as the entity.
                 </p>
               </div>
-            </div><br><br>
+            </div>
+          </div>
 
             <!-- ARRAYS -->
-            <a class="anchor" id="Arrays"></a>
+            <div  id="Arrays">
             <h2>Arrays</h2>
 
             <!-- USE -->
@@ -581,10 +586,11 @@ X_2D(3,1) &lt;= 4;</code></pre>
                   Note that arrays are usually implemented using gates and flip-flops, not ROM's and RAM's.
                 </p>
               </div>
-            </div><br><br>
+            </div>
+          </div>
 
             <!-- Assert -->
-            <a class="anchor" id="Assert"></a>
+            <div  id="Assert">
             <h2>Assert</h2>
 
             <!-- USE -->
@@ -668,10 +674,11 @@ end process CHECK_SETUP;</code></pre>
               <div class="panel-body">
                 Assert statements are ignored by logic synthesis tools.
               </div>
-            </div><br><br>
+            </div>
+          </div>
 
             <!-- Attributes -->
-            <a class="anchor" id="Attributes"></a>
+            <div  id="Attributes">
             <h2>Attributes</h2>
 
             <!-- USE -->
@@ -746,10 +753,11 @@ attribute PTYPE of U2 : component is DIL;</code></pre>
                 Several synthesis vendors define a set of attributes to supply synthesis directives
                 such as area or timing constraints, enumeration encoding etc.
               </div>
-            </div><br><br>
+            </div>
+          </div>
 
-            <!--  -->
-            <a class="anchor" id="Block_Statement"></a>
+            <!-- Block Statement -->
+            <div  id="Block_Statement">
             <h2>Block Statement</h2>
 
             <!-- USE -->
@@ -826,10 +834,11 @@ end BLKS;</code></pre>
                 <b>Guarded block</b> statements are <b>not</b> usually supported for synthesis.<br/><br/>
                 Sequential (i.e. flip-flop and register) behaviour can be modelled using guarded blocks, but again for synthesis and readability it is better described using "clocked" processes.
               </div>
-            </div><br><br>
+            </div>
+          </div>
 
             <!-- Case Statement -->
-            <a class="anchor" id="Case_Statement"></a>
+            <div  id="Case_Statement">
             <h2>Case Statement</h2>
 
             <!-- USE -->
@@ -915,10 +924,11 @@ With multiple targets and embedded <b>if</b> statements, the <b>case</b> stateme
     -- etc.
 end case;</code></pre>
               </div>
-            </div><br><br>
+            </div>
+          </div>
 
-            <!--  -->
-            <a class="anchor" id="Component_Declaration"></a>
+            <!-- Component Declaration -->
+            <div  id="Component_Declaration">
             <h2>Component Declaration</h2>
 
             <!-- USE -->
@@ -996,10 +1006,11 @@ end component;</code></pre>
               <div class="panel-body">
                 <b>Component</b> declarations are supported for synthesis, providing the port types are acceptable to the logic synthesis tool. Usually, only generics of type integer are supported. Whether a synthesis tool will "flatten through" a component, treat is as a "black box", or recognise it as a primitive is usually under the user's control.
               </div>
-            </div><br><br>
+            </div>
+          </div>
 
             <!-- Component Instantiation -->
-            <a class="anchor" id="Component_Instantiation"></a>
+            <div  id="Component_Instantiation">
             <h2>Component Instantiation</h2>
 
             <!-- USE -->
@@ -1080,10 +1091,11 @@ An instance of a component with generics, has a <b>generic map</b> declared befo
               <div class="panel-body">
                 Component instantiation is supported for synthesis, although <b>generic map</b> is usually ignored. Whether a logic synthesis tool will "flatten through" a component, treat it as a "black box", or recognise it as a primitive is usually under the user's control.
               </div>
-            </div><br><br>
+            </div>
+          </div>
 
             <!-- Configuration Specification -->
-            <a class="anchor" id="Configuration_Specification"></a>
+            <div  id="Configuration_Specification">
             <h2>Configuration Specification</h2>
 
             <!-- USE -->
@@ -1166,10 +1178,11 @@ In the abscence of an explicit configuration for any part of a model, <b>default
               <div class="panel-body">
                 Configuration is not usually supported by synthesis tools. The user usually has to ensure that component and entity names and ports match, and that only one architecture per entity is analysed.
               </div>
-            </div><br><br>
+            </div>
+          </div>
 
             <!-- Constant Declaration -->
-            <a class="anchor" id="Constant_Declaration"></a>
+            <div  id="Constant_Declaration">
             <h2>Constant Declaration</h2>
 
             <!-- USE -->
@@ -1239,10 +1252,11 @@ end process;</code></pre>
               <div class="panel-body">
                 Constants are supported for synthesis, providing they are of a type acceptable to the logic synthesis tool. They are either synthesised as connections to logic '1' or '0', or are used to help minimise the number of gatyes required. Deferred constants may not bwe supported.
               </div>
-            </div><br><br>
+            </div>
+          </div>
 
             <!-- Entity -->
-            <a class="anchor" id="Entity"></a>
+            <div  id="Entity">
             <h2>Entity</h2>
 
             <!-- USE -->
@@ -1343,10 +1357,11 @@ An <b>entity</b> may also contain declarations. Items declared are visible withi
               <div class="panel-body">
                 Entity declarations are supported for suynthesis, providing the port types are acceptable to the logic synthesis tool. Usually, only generics of type integer are supported. Values for generics have to be supplied by the user at the time of synthesis.
               </div>
-            </div><br><br>
+            </div>
+          </div>
 
             <!-- Exit Statement -->
-            <a class="anchor" id="Exit_Statement"></a>
+            <div  id="Exit_Statement">
             <h2>Exit Statement</h2>
 
             <!-- USE -->
@@ -1419,10 +1434,11 @@ end loop L1;</code></pre>
               <div class="panel-body">
                 The exit statement is supported by some logic synthesis tools, with certain restrictions.
               </div>
-            </div><br><br>
+            </div>
+          </div>
 
             <!-- File Declaration -->
-            <a class="anchor" id="File_Declaration"></a>
+            <div  id="File_Declaration">
             <h2>File Declaration</h2>
 
             <!-- USE -->
@@ -1505,10 +1521,11 @@ A <b>file</b> (read or write) is opened in VHDL when the structure in which it i
               <div class="panel-body">
                 File declarations and operations are not supported by logic synthesis tools.
               </div>
-            </div><br><br>
+            </div>
+          </div>
 
             <!-- For Loop -->
-            <a class="anchor" id="For_Loop"></a>
+            <div  id="For_Loop">
             <h2>For Loop</h2>
 
             <!-- USE -->
@@ -1593,10 +1610,11 @@ end loop;</code></pre>
                   <li>the loop contains no <b>wait</b> statements.</li>
                 </ol>
               </div>
-            </div><br><br>
+            </div>
+          </div>
 
             <!-- Functions -->
-            <a class="anchor" id="Functions"></a>
+            <div  id="Functions">
             <h2>Functions</h2>
 
             <!-- USE -->
@@ -1678,10 +1696,11 @@ end FUNCTIONS;</code></pre>
               <div class="panel-body">
                 User-defined functions are usually supported for synthesis, providing they act on suitable data types. Different synthesis tools recognise various different type conversion and resolution functions. Most accept those deined in the std_logic_1164 package.
               </div>
-            </div><br><br>
+            </div>
+          </div>
 
             <!-- Generate Statement -->
-            <a class="anchor" id="Generate_Statement"></a>
+            <div  id="Generate_Statement">
             <h2>Generate Statement</h2>
 
             <!-- USE -->
@@ -1781,10 +1800,11 @@ end GEN;</code></pre>
               <div class="panel-body">
                 Generate statements are usually supported for synthesis.
               </div>
-            </div><br><br>
+            </div>
+          </div>
 
             <!-- Generics -->
-            <a class="anchor" id="Generics"></a>
+            <div  id="Generics">
             <h2>Generics</h2>
 
             <!-- USE -->
@@ -1886,10 +1906,11 @@ Default values for generics may be given in an entity declaration or in a compon
               <div class="panel-body">
                 Usually, only generics of type integer are supported. Values for generics in an entity declaration have to be supplied by the user to allow elaboration at the time of synthesis. generic map is usually ignored.
               </div>
-            </div><br><br>
+            </div>
+          </div>
 
             <!-- If Statement -->
-            <a class="anchor" id="If_Statement"></a>
+            <div  id="If_Statement">
             <h2>If Statement</h2>
 
             <!-- USE -->
@@ -1987,10 +2008,11 @@ end case;</code></pre>
               <div class="panel-body">
                 The <b>if</b> statement is generally synthesisable. Where an <b>if</b> statement is used to detect the clock edge in a "clocked process", certain conventions must be obeyed. Using an <b>if</b> statement without an <b>else</b> clause in a "combinational process" can result in latches being inferred, unless all signals driven by the process are given unconditional default assignments. For more details see Process.
               </div>
-            </div><br><br>
+            </div>
+          </div>
 
             <!-- Literals -->
-            <a class="anchor" id="Literals"></a>
+            <div  id="Literals">
             <h2>Literals</h2>
 
             <!-- USE -->
@@ -2069,10 +2091,11 @@ Non-printing characters may be included in a string literal using concatenation:
               <div class="panel-body">
                 Literals are supported for synthesis, providing they are of a type acceptable to the logic synthesis tool. They are either synthesised as connections to logic '1' or '0', or are used to help minimised the number of gates required.
               </div>
-            </div><br><br>
+            </div>
+          </div>
 
             <!-- Names -->
-            <a class="anchor" id="Names"></a>
+            <div  id="Names">
             <h2>Names</h2>
 
             <!-- USE -->
@@ -2128,10 +2151,11 @@ None of the VHDL keywords (i.e. signal, bus, component, wait, etc.) may be reuse
               <div class="panel-body">
                 Legal names (identifiers) are supported for synthesis, but long names may be truncated in some tools, or when using certain output netlist formats.
               </div>
-            </div><br><br>
+            </div>
+          </div>
 
             <!-- Next Statement -->
-            <a class="anchor" id="Next_Statement"></a>
+            <div  id="Next_Statement">
             <h2>Next Statement</h2>
 
             <!-- USE -->
@@ -2207,10 +2231,11 @@ end process READ_BUS;</code></pre>
               <div class="panel-body">
                 The next statement is supported by some logic synthesis tools, with certain restrictions.
               </div>
-            </div><br><br>
+            </div>
+          </div>
 
             <!-- Null Statement -->
-            <a class="anchor" id="Null_Statement"></a>
+            <div  id="Null_Statement">
             <h2>Null Statement</h2>
 
             <!-- USE -->
@@ -2264,10 +2289,11 @@ end case;</code></pre>
 
                 Note: using a null statement in a "combinational process" can result in latches being inferred, unless all signals driven by the process are given unconditional default assignments.
               </div>
-            </div><br><br>
+            </div>
+          </div>
 
             <!-- Operators -->
-            <a class="anchor" id="Operators"></a>
+            <div  id="Operators">
             <h2>Operators</h2>
 
             <!-- USE -->
@@ -2349,10 +2375,11 @@ Other numeric operators are exponentiation (<b>**</b>), absolute value (<b>abs</
 
                 The following are <b>not</b> usually synthesisable, except as part of a constant expression: exponentiation (**), division by other than 2, mod, rem.
               </div>
-            </div><br><br>
+            </div>
+          </div>
 
             <!-- Package -->
-            <a class="anchor" id="Package"></a>
+            <div  id="Package">
             <h2>Package</h2>
 
             <!-- USE -->
@@ -2432,10 +2459,11 @@ end P;</code></pre>
 
                 If a package has a body, it must usually be in the same design file as the package itself.
               </div>
-            </div><br><br>
+            </div>
+          </div>
 
             <!-- Package Body -->
-            <a class="anchor" id="Package_Body"></a>
+            <div  id="Package_Body">
             <h2>Package Body</h2>
 
             <!-- USE -->
@@ -2510,10 +2538,11 @@ Each package can only have one <b>body</b>.
                 <br/><br/>
                 A package body must usually be in the same design file as the package itself.
               </div>
-            </div><br><br>
+            </div>
+          </div>
 
             <!-- Procedures -->
-            <a class="anchor" id="Procedures"></a>
+            <div  id="Procedures">
             <h2>Procedures</h2>
 
             <!-- USE -->
@@ -2613,10 +2642,11 @@ end REF_PACK;</code></pre>
               <div class="panel-body">
                 Procedures are usually supported for synthesis, providing they do not contain any wait statements.
               </div>
-            </div><br><br>
+            </div>
+          </div>
 
             <!-- Process -->
-            <a class="anchor" id="Process"></a>
+            <div  id="Process">
             <h2>Process</h2>
 
             <!-- USE -->
@@ -2706,10 +2736,11 @@ begin
   end if;
 end process;</code></pre>
               </div>
-            </div><br><br>
+            </div>
+          </div>
 
             <!-- Qualified Expressions -->
-            <a class="anchor" id="Qualified_Expressions"></a>
+            <div  id="Qualified_Expressions">
             <h2>Qualified Expressions</h2>
 
             <!-- USE -->
@@ -2790,10 +2821,11 @@ end BEHAVIOURAL;</code></pre>
               <div class="panel-body">
                 Qualified expressions are usually supported bt logic synthesis tools, providing the expression is of a synthesisable type.
               </div>
-            </div><br><br>
+            </div>
+          </div>
 
             <!-- Signal Assignment - Concurrent -->
-            <a class="anchor" id="Signal_Assignment-Concurrent"></a>
+            <div  id="Signal_Assignment-Concurrent">
             <h2>Signal Assignment - Concurrent</h2>
 
             <!-- USE -->
@@ -2873,10 +2905,11 @@ For <b>guarded assignments</b>, see <b>blocks</b>.
 
                 Guarded assignments are not usually supported, and delays are ignored.
               </div>
-            </div><br><br>
+            </div>
+          </div>
 
             <!-- Signal Assignment - Conditional -->
-            <a class="anchor" id="Signal_Assignment-Conditional"></a>
+            <div  id="Signal_Assignment-Conditional">
             <h2>Signal Assignment - Conditional</h2>
 
             <!-- USE -->
@@ -2953,10 +2986,11 @@ end COND;</code></pre>
 
                 If a signal is conditionally assigned to itself, latches may be inferred.
               </div>
-            </div><br><br>
+            </div>
+          </div>
 
             <!-- Signal Assignment - Sequential -->
-            <a class="anchor" id="Signal_Assignment-Sequential"></a>
+            <div  id="Signal_Assignment-Sequential">
             <h2>Signal Assignment - Sequential</h2>
 
             <!-- USE -->
@@ -3043,10 +3077,11 @@ The rules about what happpens when a delayed signal assignment is subsequently o
 
                 Signals driven by a "combinational process" will be inferred as the outputs of combinational logic <b>but</b> a signal which is assigned only under certain conditions may infer a latch. Assignment to 'Z' will normally generate tri-state drivers. assignment to 'X' may not be supported.
               </div>
-            </div><br><br>
+            </div>
+          </div>
 
             <!-- Signal Declaration -->
-            <a class="anchor" id="Signal_Declaration"></a>
+            <div  id="Signal_Declaration">
             <h2>Signal Declaration</h2>
 
             <!-- USE -->
@@ -3116,10 +3151,11 @@ The "signal kind" keyword may be <b>register</b> or <b>bus</b>. Guarded resolved
 
                 Only certain resolved signal types are supported. Most tools recognise the <b>std_logic_1164</b> types.
               </div>
-            </div><br><br>
+            </div>
+          </div>
 
             <!-- Subtype Declaration -->
-            <a class="anchor" id="Subtype_Declaration"></a>
+            <div  id="Subtype_Declaration">
             <h2>Subtype Declaration</h2>
 
             <!-- USE -->
@@ -3191,10 +3227,11 @@ subtype UXO1 is std_ulogic range 'U' to '1';</code></pre>
 
                 Synthesis tools will infer an appropriate number of bits for enumerated and integer subtypes, depending on the range.
               </div>
-            </div><br><br>
+            </div>
+          </div>
 
             <!-- Type Conversion -->
-            <a class="anchor" id="Type_Conversion"></a>
+            <div  id="Type_Conversion">
             <h2>Type Conversion</h2>
 
             <!-- USE -->
@@ -3278,10 +3315,11 @@ A type conversion function may be called in a port map, to match port type to si
 
                 Conversion functions in port maps are not usually supported.
               </div>
-            </div><br><br>
+            </div>
+          </div>
 
             <!-- Use Clause -->
-            <a class="anchor" id="Use_Clause"></a>
+            <div  id="Use_Clause">
             <h2>Use Clause</h2>
 
             <!-- USE -->
@@ -3349,10 +3387,11 @@ The shorter form of the use clause may also appear in the declarative part of an
 
                 Design files corresponding to any design units referenced by a use clause must be analysed before the design units referencing them can be synthesised.
               </div>
-            </div><br><br>
+            </div>
+          </div>
 
             <!-- Variable Declaration -->
-            <a class="anchor" id="Variable_Declaration"></a>
+            <div  id="Variable_Declaration">
             <h2>Variable Declaration</h2>
 
             <!-- USE -->
@@ -3432,10 +3471,11 @@ end process;</code></pre>
 
                 Variables declared in a subprogram are synthesised as combinational logic.
               </div>
-            </div><br><br>
+            </div>
+          </div>
 
             <!-- Variable Assignment -->
-            <a class="anchor" id="Variable_Assignment"></a>
+            <div  id="Variable_Assignment">
             <h2>Variable Assignment</h2>
 
             <!-- USE -->
@@ -3527,10 +3567,11 @@ end process;</code></pre>
 
                 Variables declared in a subprogram are synthesised as combinational logic.
               </div>
-            </div><br><br>
+            </div>
+          </div>
 
             <!-- Wait Statement -->
-            <a class="anchor" id="Wait_Statement"></a>
+            <div  id="Wait_Statement">
             <h2>Wait Statement</h2>
 
             <!-- USE -->
@@ -3627,10 +3668,11 @@ end process STIMULUS;</code></pre>
 
                 <b>Wait for</b>, unconditional <b>wait</b> and wait statements in procedures are not supported.
               </div>
-            </div><br><br>
+            </div>
+          </div>
 
             <!-- While and Infinite Loop -->
-            <a class="anchor" id="While_and_Infinite_Loop"></a>
+            <div  id="While_and_Infinite_Loop">
             <h2>While and Infinite Loop</h2>
 
             <!-- USE -->
@@ -3712,7 +3754,8 @@ end process;</code></pre>
               <div class="panel-body">
                 While and infinite loops are supported by some logic synthesis tools, with certain restrictions.
               </div>
-            </div><br><br>
+            </div>
+          </div>
             <!-- <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a> -->
           </div>
         </div>
