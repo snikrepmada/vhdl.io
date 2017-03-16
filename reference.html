@@ -727,7 +727,7 @@ X'last_active -- When signal X was last assigned to (time)
 X'last_value -- Previous value of X (same type as X)</code></pre>
 
 These attributes create a <b>new signal</b>, based on signal X:
-<pre><code class="vhdl">X'delayed(T)Signal X delayed by T (same type as X)
+<pre><code class="vhdl">X'delayed(T) -- Signal X delayed by T (same type as X)
 X'stable(T) -- True if X unaltered for time T (boolean)
 X'quiet(T) -- True if X is unassigned for time T (boolean)
 X'transaction -- "Toggles" when X is assigned (bit)</code></pre>
